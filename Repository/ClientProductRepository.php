@@ -2,7 +2,6 @@
 
 namespace Williams\ErpBundle\Repository;
 
-use JMS\Serializer\Serializer;
 use Williams\ErpBundle\Service\ErpClientService;
 
 class ClientProductRepository implements AbstractProductRepository {
@@ -16,13 +15,6 @@ class ClientProductRepository implements AbstractProductRepository {
         $this->erp = $erp;
     }
 
-    /**
-     * @return Serializer
-     */
-    private function getSerializer() {
-        return $this->get('jms_serializer');
-    }
-
     public function findAll($limit = 1000, $offset = 0) {
 
         $format = 'json';
@@ -31,7 +23,7 @@ class ClientProductRepository implements AbstractProductRepository {
 
         $result = array();
 
-        $serializer = $this->getSerializer();
+        $serializer = $this->erp->getSerializer();
 
         $result = $serializer->deserialize($data, 'Williams\ErpBundle\Model\Product', $format);
 
