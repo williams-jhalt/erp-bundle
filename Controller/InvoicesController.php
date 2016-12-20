@@ -4,6 +4,7 @@ namespace Williams\ErpBundle\Controller;
 
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\View\View;
+use Williams\ErpBundle\Model\InvoiceCollection;
 use Williams\ErpBundle\Service\ErpService;
 
 class InvoicesController extends FOSRestController {
@@ -26,7 +27,7 @@ class InvoicesController extends FOSRestController {
         
         $invoices = $repo->findByOrderNumber($orderNumber);
         
-        $view = $this->view($invoices, 200);
+        $view = $this->view(new InvoiceCollection($invoices), 200);
         
         return $this->handleView($view);
         

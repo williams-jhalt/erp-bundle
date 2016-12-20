@@ -4,6 +4,7 @@ namespace Williams\ErpBundle\Controller;
 
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\View\View;
+use Williams\ErpBundle\Model\ShipmentPackageCollection;
 use Williams\ErpBundle\Service\ErpService;
 
 class ShipmentCartonsController extends FOSRestController {
@@ -26,7 +27,7 @@ class ShipmentCartonsController extends FOSRestController {
         
         $items = $repo->getPackages((int)$orderNumber);        
         
-        $view = $this->view($items, 200);
+        $view = $this->view(new ShipmentPackageCollection($items), 200);
         
         return $this->handleView($view);
         

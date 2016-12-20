@@ -6,6 +6,7 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Request\ParamFetcher;
 use FOS\RestBundle\View\View;
+use Williams\ErpBundle\Model\ProductCollection;
 use Williams\ErpBundle\Service\ErpService;
 
 class ProductsController extends FOSRestController {
@@ -39,7 +40,7 @@ class ProductsController extends FOSRestController {
             $products = $productRepo->findAll($limit, $offset);
         }
         
-        $view = $this->view($products, 200);
+        $view = $this->view(new ProductCollection($products), 200);
         
         return $this->handleView($view);
         

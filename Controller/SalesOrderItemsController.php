@@ -4,6 +4,7 @@ namespace Williams\ErpBundle\Controller;
 
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\View\View;
+use Williams\ErpBundle\Model\SalesOrderItemCollection;
 use Williams\ErpBundle\Service\ErpService;
 
 class SalesOrderItemsController extends FOSRestController {
@@ -26,7 +27,7 @@ class SalesOrderItemsController extends FOSRestController {
 
         $items = $repo->getItems((int)$orderNumber);
 
-        $view = $this->view($items, 200);
+        $view = $this->view(new SalesOrderItemCollection($items), 200);
 
         return $this->handleView($view);
     }

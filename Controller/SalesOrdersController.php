@@ -2,11 +2,13 @@
 
 namespace Williams\ErpBundle\Controller;
 
+use AppBundle\Form\OrderType;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Request\ParamFetcher;
 use Symfony\Component\HttpFoundation\Request;
 use Williams\ErpBundle\Model\Order;
+use Williams\ErpBundle\Model\SalesOrderCollection;
 use Williams\ErpBundle\Service\ErpService;
 
 class SalesOrdersController extends FOSRestController {
@@ -75,7 +77,7 @@ class SalesOrdersController extends FOSRestController {
             $salesOrders = $repo->findOpen($limit, $offset);
         }
 
-        $view = $this->view($salesOrders, 200);
+        $view = $this->view(new SalesOrderCollection($salesOrders), 200);
 
         return $this->handleView($view);
     }
