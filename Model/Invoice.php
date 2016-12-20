@@ -2,13 +2,45 @@
 
 namespace Williams\ErpBundle\Model;
 
+use JMS\Serializer\Annotation as JMS;
+use DateTime;
+
 class Invoice extends SalesOrder {
 
+    /**
+     * @JMS\Type("string")
+     * @var string
+     */
     protected $invoiceNumber;
+    
+    /**
+     * @JMS\Type("DateTime")
+     * @var DateTime
+     */
     protected $invoiceDate;
+    
+    /**
+     * @JMS\Type("double")
+     * @var double
+     */
     protected $grossInvoiceAmount;
+    
+    /**
+     * @JMS\Type("double")
+     * @var double
+     */
     protected $netInvoiceAmount;
+    
+    /**
+     * @JMS\Type("double")
+     * @var double
+     */
     protected $shippingAndHandling;
+    
+    /**
+     * @JMS\Type("double")
+     * @var double
+     */
     protected $freightCharge;
 
     public function getInvoiceNumber() {

@@ -2,26 +2,124 @@
 
 namespace Williams\ErpBundle\Model;
 
+use DateTime;
+use JMS\Serializer\Annotation as JMS;
+
 class SalesOrder {
 
+    
+    /**
+     * @JMS\Type("integer")
+     * @var integer
+     */
     protected $orderNumber;
+    
+    /**
+     * @JMS\Type("integer")
+     * @var integer
+     */
     protected $recordSequence;
+    
+    /**
+     * @JMS\Type("string")
+     * @var string
+     */
     protected $shipToName;
+    
+    /**
+     * @JMS\Type("string")
+     * @var string
+     */
     protected $shipToAddress1;
+    
+    /**
+     * @JMS\Type("string")
+     * @var string
+     */
     protected $shipToAddress2;
+    
+    /**
+     * @JMS\Type("string")
+     * @var string
+     */
     protected $shipToAddress3;
+    
+    /**
+     * @JMS\Type("string")
+     * @var string
+     */
     protected $shipToCity;
+    
+    /**
+     * @JMS\Type("string")
+     * @var string
+     */
     protected $shipToState;
+    
+    /**
+     * @JMS\Type("string")
+     * @var string
+     */
     protected $shipToZip;
+    
+    /**
+     * @JMS\Type("string")
+     * @var string
+     */
     protected $shipToCountry;
+    
+    /**
+     * @JMS\Type("string")
+     * @var string
+     */
     protected $shipToPhone;
+    
+    /**
+     * @JMS\Type("string")
+     * @var string
+     */
     protected $shipToEmail;
+    
+    /**
+     * @JMS\Type("DateTime")
+     * @var DateTime
+     */
     protected $orderDate;
+    
+    /**
+     * @JMS\Type("string")
+     * @var string
+     */
     protected $shipViaCode;
+    
+    /**
+     * @JMS\Type("string")
+     * @var string
+     */
     protected $customerNumber;
+    
+    /**
+     * @JMS\Type("string")
+     * @var string
+     */
     protected $webReferenceNumber;
+    
+    /**
+     * @JMS\Type("string")
+     * @var string
+     */
     protected $customerPurchaseOrder;
+    
+    /**
+     * @JMS\Type("boolean")
+     * @var boolean
+     */
     protected $open;
+    
+    /**
+     * @JMS\Type("string")
+     * @var string
+     */
     protected $status;
 
     public function getOrderNumber() {

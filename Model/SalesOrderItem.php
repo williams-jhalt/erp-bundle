@@ -2,10 +2,27 @@
 
 namespace Williams\ErpBundle\Model;
 
+use JMS\Serializer\Annotation as JMS;
+
 class SalesOrderItem {
 
+    
+    /**
+     * @JMS\Type("string")
+     * @var string
+     */
     protected $itemNumber;
+    
+    /**
+     * @JMS\Type("integer")
+     * @var integer
+     */
     protected $quantityOrdered;
+    
+    /**
+     * @JMS\Type("string")
+     * @var string
+     */
     protected $unitOfMeasure;
 
     public function getItemNumber() {

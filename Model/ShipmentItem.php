@@ -2,8 +2,15 @@
 
 namespace Williams\ErpBundle\Model;
 
+use JMS\Serializer\Annotation as JMS;
+
 class ShipmentItem extends SalesOrderItem {
 
+    
+    /**
+     * @JMS\Type("integer")
+     * @var integer
+     */
     protected $quantityShipped;
 
     public function getQuantityShipped() {

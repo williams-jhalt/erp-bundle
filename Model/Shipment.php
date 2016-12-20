@@ -2,9 +2,22 @@
 
 namespace Williams\ErpBundle\Model;
 
+use JMS\Serializer\Annotation as JMS;
+use Symfony\Component\Validator\Constraints\DateTime;
+
 class Shipment extends SalesOrder {
 
+    
+    /**
+     * @JMS\Type("string")
+     * @var string
+     */
     protected $manifestId;
+    
+    /**
+     * @JMS\Type("DateTime")
+     * @var DateTime
+     */
     protected $shipDate;
 
     public function getManifestId() {

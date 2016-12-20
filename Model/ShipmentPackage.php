@@ -2,16 +2,63 @@
 
 namespace Williams\ErpBundle\Model;
 
+use JMS\Serializer\Annotation as JMS;
+
 class ShipmentPackage {
 
+    
+    /**
+     * @JMS\Type("string")
+     * @var string
+     */
     protected $trackingNumber;
+    
+    /**
+     * @JMS\Type("double")
+     * @var double
+     */
     protected $freightCost;
+    
+    /**
+     * @JMS\Type("double")
+     * @var double
+     */
     protected $shippingWeight;
+    
+    /**
+     * @JMS\Type("string")
+     * @var string
+     */
     protected $shipViaCode;
+    
+    /**
+     * @JMS\Type("double")
+     * @var double
+     */
     protected $packageHeight;
+    
+    /**
+     * @JMS\Type("double")
+     * @var double
+     */
     protected $packageLength;
+    
+    /**
+     * @JMS\Type("double")
+     * @var double
+     */
     protected $packageWidth;
+    
+    /**
+     * @JMS\Type("string")
+     * @var string
+     */
     protected $ucc;
+    
+    /**
+     * @JMS\Type("array<Williams\ErpBundle\Model\ShipmentPackageItem>")
+     * @var ShipmentPackageItem[]
+     */
     protected $items;
 
     public function getTrackingNumber() {

@@ -2,9 +2,21 @@
 
 namespace Williams\ErpBundle\Model;
 
+use JMS\Serializer\Annotation as JMS;
+
 class ShipmentPackageItem {
 
+    
+    /**
+     * @JMS\Type("string")
+     * @var string
+     */
     protected $itemNumber;
+    
+    /**
+     * @JMS\Type("integer")
+     * @var integer
+     */
     protected $quantity;
 
     public function getItemNumber() {

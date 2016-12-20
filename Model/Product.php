@@ -2,21 +2,94 @@
 
 namespace Williams\ErpBundle\Model;
 
+use DateTime;
+use JMS\Serializer\Annotation as JMS;
+
 class Product {
 
+    
+    /**
+     * @JMS\Type("string")
+     * @var string
+     */
     protected $itemNumber;
+    
+    /**
+     * @JMS\Type("string")
+     * @var string
+     */
     protected $name;
+    
+    /**
+     * @JMS\Type("double")
+     * @var double
+     */
     protected $wholesalePrice;
+    
+    /**
+     * @JMS\Type("DateTime")
+     * @var DateTime
+     */
     protected $releaseDate;
+    
+    /**
+     * @JMS\Type("string")
+     * @var string
+     */
     protected $binLocation;
+    
+    /**
+     * @JMS\Type("string")
+     * @var string
+     */
     protected $manufacturerCode;
+    
+    /**
+     * @JMS\Type("string")
+     * @var string
+     */
     protected $productTypeCode;
+    
+    /**
+     * @JMS\Type("integer")
+     * @var integer
+     */
     protected $quantityOnHand;
+    
+    /**
+     * @JMS\Type("integer")
+     * @var integer
+     */
     protected $quantityCommitted;
+    
+    /**
+     * @JMS\Type("DateTime")
+     * @var DateTime
+     */
     protected $createdOn;
+    
+    /**
+     * @JMS\Type("boolean")
+     * @var boolean
+     */
     protected $deleted;
+    
+    /**
+     * @JMS\Type("boolean")
+     * @var boolean
+     */
     protected $webItem;
+    
+    /**
+     * @JMS\Type("string")
+     * @var string
+     */
     protected $warehouse;
+    
+    /**
+     * @JMS\Type("string")
+     * @var string
+     */
     protected $unitOfMeasure;
 
     public function getItemNumber() {
