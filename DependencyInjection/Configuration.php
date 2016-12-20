@@ -13,15 +13,15 @@ class Configuration implements ConfigurationInterface {
 
         $rootNode->children()
                 ->scalarNode('role')->end()
-                ->arrayNode('erp_server')
-                ->children()
-                ->scalarNode('host')->end()
-                ->scalarNode('username')->end()
-                ->scalarNode('password')->end()
-                ->scalarNode('company')->end()
-                ->scalarNode('appname')->end()
-                ->end()
-                ->end()
+                    ->arrayNode('erp_server')
+                        ->children()
+                            ->scalarNode('host')->end()
+                            ->scalarNode('username')->end()
+                            ->scalarNode('password')->end()
+                            ->scalarNode('company')->end()
+                            ->scalarNode('appname')->end()
+                        ->end()
+                    ->end()
                 ->end();
 
         return $treeBuilder;

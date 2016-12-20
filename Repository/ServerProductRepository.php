@@ -4,9 +4,18 @@ namespace Williams\ErpBundle\Repository;
 
 use DateTime;
 use Williams\ErpBundle\Model\Product;
-use Williams\ErpBundle\Service\ErpService;
+use Williams\ErpBundle\Service\ErpServerService;
 
-class ServerProductRepository extends AbstractProductRepository {
+class ServerProductRepository implements AbstractProductRepository {
+
+    /**
+     * @var ErpServerService
+     */
+    protected $erp;
+
+    public function __construct(ErpServerService $erp) {
+        $this->erp = $erp;
+    }
 
     public function findAll($limit = 1000, $offset = 0) {
 

@@ -2,13 +2,16 @@
 
 namespace Williams\ErpBundle\Repository;
 
-use DateTime;
-use Williams\ErpBundle\Model\Order;
-use Williams\ErpBundle\Model\SalesOrder;
-use Williams\ErpBundle\Model\SalesOrderItem;
-use Williams\ErpBundle\Service\ErpService;
+class ClientSalesOrderRepository implements AbstractSalesOrderRepository {
 
-class ClientSalesOrderRepository extends AbstractSalesOrderRepository {
+    /**
+     * @var ErpClientService
+     */
+    protected $erp;
+
+    public function __construct(ErpClientService $erp) {
+        $this->erp = $erp;
+    }
 
     public function findAll($limit = 100, $offset = 0) {
     }

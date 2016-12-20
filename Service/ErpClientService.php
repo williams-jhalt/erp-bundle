@@ -30,5 +30,9 @@ class ErpClientService implements ErpService {
     public function getInvoiceRepository() {
         return new ClientInvoiceRepository($this);
     }
+    
+    public function getHost() {
+        return $this->host;
+    }
 
 }

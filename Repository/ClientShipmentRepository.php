@@ -2,14 +2,16 @@
 
 namespace Williams\ErpBundle\Repository;
 
-use DateTime;
-use Williams\ErpBundle\Model\Shipment;
-use Williams\ErpBundle\Model\ShipmentItem;
-use Williams\ErpBundle\Model\ShipmentPackage;
-use Williams\ErpBundle\Model\ShipmentPackageItem;
-use Williams\ErpBundle\Service\ErpService;
+class ClientShipmentRepository implements AbstractShipmentRepository {
 
-class ClientShipmentRepository extends AbstractShipmentRepository {
+    /**
+     * @var ErpClientService
+     */
+    protected $erp;
+
+    public function __construct(ErpClientService $erp) {
+        $this->erp = $erp;
+    }
 
     public function findAll($limit = 1000, $offset = 0) {
     }

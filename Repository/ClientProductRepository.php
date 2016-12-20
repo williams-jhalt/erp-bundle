@@ -3,8 +3,18 @@
 namespace Williams\ErpBundle\Repository;
 
 use JMS\Serializer\Serializer;
+use Williams\ErpBundle\Service\ErpClientService;
 
-class ClientProductRepository extends AbstractProductRepository {
+class ClientProductRepository implements AbstractProductRepository {
+
+    /**
+     * @var ErpClientService
+     */
+    protected $erp;
+
+    public function __construct(ErpClientService $erp) {
+        $this->erp = $erp;
+    }
 
     /**
      * @return Serializer
@@ -17,7 +27,7 @@ class ClientProductRepository extends AbstractProductRepository {
 
         $format = 'json';
 
-        $data = file_get_contents($this->url . "/products.{$format}?limit={$limit}&offset={$offset}");
+        $data = file_get_contents($this->erp->getHost() . "/products.{$format}?limit={$limit}&offset={$offset}");
 
         $result = array();
 
