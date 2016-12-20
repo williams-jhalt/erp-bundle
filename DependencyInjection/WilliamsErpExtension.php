@@ -5,6 +5,7 @@ namespace Williams\ErpBundle\DependencyInjection;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
+use Symfony\Component\Config\FileLocator;
 
 class WilliamsErpExtension extends Extension {
 
@@ -14,7 +15,8 @@ class WilliamsErpExtension extends Extension {
 
         $config = $this->processConfiguration($configuration, $configs);
 
-        $loader = new YamlFileLoader();
+        $loader = new YamlFileLoader(
+                $container, new FileLocator(__DIR__ . '/../Resources/config'));
 
         if ($config['role'] == 'server') {
 
