@@ -15,6 +15,7 @@ class ErpClientService implements ErpService {
 
     public function __construct($host, Serializer $serializer) {
         $this->host = $host;
+        $this->serializer = $serializer;
     }
 
     public function getProductRepository() {
