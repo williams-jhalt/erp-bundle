@@ -7,7 +7,7 @@ use JMS\Serializer\Annotation as JMS;
 class ShipmentPackageItemCollection {
 
     /**
-     * @JMS\Type(array<Williams\ErpBundle\Model\ShipmentPackageItem>)
+     * @JMS\Type("array<Williams\ErpBundle\Model\ShipmentPackageItem>")
      * @var ShipmentPackageItem[]
      */
     protected $items;
