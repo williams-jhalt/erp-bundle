@@ -1,0 +1,7 @@
+williams_erp_products:
+    type: rest
+    resource: Williams\ErpBundle\Controller\ProductsController
+    
+williams_erp_orders:
+    type: rest
+    resource: orders_routes.yml
