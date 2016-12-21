@@ -9,6 +9,31 @@ use Symfony\Component\Config\FileLocator;
 
 class WilliamsErpExtension extends Extension {
 
+    public function prepend(ContainerBuilder $container) {
+
+        $bundles = $container->getParameter('kernel.bundles');
+
+        if (isset($bundles['FOSRestBundle'])) {
+            $config = array(
+                'routing_loader' => array(
+                    'default_format' => 'json'
+                ),
+                'param_fetcher_listener' => true,
+                'body_listener' => true,
+                'body_converter' => array(
+                    'enabled' => true
+                ),
+                'format_listener' => array(
+                    'enabled' => true
+                ),
+                'view' => array(
+                    'view_response_listener' => 'force'
+                )
+            );
+            $container->prependExtensionConfig('fos_rest', $config);
+        }
+    }
+
     public function load(array $configs, ContainerBuilder $container) {
 
         $configuration = new Configuration();
@@ -27,7 +52,6 @@ class WilliamsErpExtension extends Extension {
             $container->setParameter('erp.appname', $config['erp_server']['appname']);
 
             $loader->load('server_services.yml');
-            
         } else {
 
             $container->setParameter('erp.host', $config['erp_server']['host']);
