@@ -1,4 +1,4 @@
 services:
     williams_erp.service:
         class: Williams\ErpBundle\Service\ErpClientService
-        arguments: [ "%erp.host%", "@jms_serializer" ] 
+        arguments: [ "%erp.host%", "%erp.username%", "%erp.password%", "@jms_serializer" ] 

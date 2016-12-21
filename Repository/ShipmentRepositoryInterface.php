@@ -2,7 +2,7 @@
 
 namespace Williams\ErpBundle\Repository;
 
-interface AbstractShipmentRepository {
+interface ShipmentRepositoryInterface {
 
     public function findAll($limit = 1000, $offset = 0);
     public function findByOrderNumber($orderNumber);

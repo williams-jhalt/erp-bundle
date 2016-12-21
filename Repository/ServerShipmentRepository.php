@@ -7,18 +7,8 @@ use Williams\ErpBundle\Model\Shipment;
 use Williams\ErpBundle\Model\ShipmentItem;
 use Williams\ErpBundle\Model\ShipmentPackage;
 use Williams\ErpBundle\Model\ShipmentPackageItem;
-use Williams\ErpBundle\Service\ErpServerService;
 
-class ServerShipmentRepository implements AbstractShipmentRepository {
-
-    /**
-     * @var ErpServerService
-     */
-    protected $erp;
-
-    public function __construct(ErpServerService $erp) {
-        $this->erp = $erp;
-    }
+class ServerShipmentRepository extends AbstractServerRepository implements ShipmentRepositoryInterface {
 
     public function findAll($limit = 1000, $offset = 0) {
 

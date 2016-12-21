@@ -5,18 +5,8 @@ namespace Williams\ErpBundle\Repository;
 use DateTime;
 use Williams\ErpBundle\Model\Invoice;
 use Williams\ErpBundle\Model\InvoiceItem;
-use Williams\ErpBundle\Service\ErpServerService;
 
-class ServerInvoiceRepository implements AbstractInvoiceRepository {
-
-    /**
-     * @var ErpServerService
-     */
-    protected $erp;
-
-    public function __construct(ErpServerService $erp) {
-        $this->erp = $erp;
-    }
+class ServerInvoiceRepository extends AbstractServerRepository implements InvoiceRepositoryInterface {
 
     public function findAll($limit = 1000, $offset = 0) {
 

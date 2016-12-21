@@ -6,18 +6,8 @@ use DateTime;
 use Williams\ErpBundle\Model\Order;
 use Williams\ErpBundle\Model\SalesOrder;
 use Williams\ErpBundle\Model\SalesOrderItem;
-use Williams\ErpBundle\Service\ErpServerService;
 
-class ServerSalesOrderRepository implements AbstractSalesOrderRepository {
-
-    /**
-     * @var ErpServerService
-     */
-    protected $erp;
-
-    public function __construct(ErpServerService $erp) {
-        $this->erp = $erp;
-    }
+class ServerSalesOrderRepository extends AbstractServerRepository implements SalesOrderRepositoryInterface {
 
     private function _find($query, $limit = 100, $offset = 0) {
 

@@ -22,6 +22,15 @@ class ErpServerService implements ErpService {
     private $_appname;
     private $_warehouse;
 
+    /**
+     * 
+     * @param string $server
+     * @param string $username
+     * @param string $password
+     * @param string $company
+     * @param string $appname
+     * @param string $warehouse
+     */
     public function __construct($server, $username, $password, $company, $appname, $warehouse = "MAIN") {
 
         $this->_cache = new FilesystemCache(sys_get_temp_dir());
@@ -41,7 +50,20 @@ class ErpServerService implements ErpService {
         }
     }
 
-    private function _getGrantToken($ch) {
+    /**
+     * Retrieves API token from ERP
+     * 
+     * @param resource $ch
+     * @throws ErpServiceException
+     */
+    private function _getGrantToken($ch = null) {
+
+        $closeCurlWhenFinished = false;
+
+        if ($ch === null) {
+            $ch = curl_init();
+            $closeCurlWhenFinished = true;
+        }
 
         curl_setopt($ch, CURLOPT_URL, $this->_server . "/distone/rest/service/authorize/grant");
         curl_setopt($ch, CURLOPT_HTTPHEADER, array(
@@ -60,7 +82,7 @@ class ErpServerService implements ErpService {
 
         if (isset($response->_errors)) {
             $this->_cache->delete('erp_token');
-            throw new Exception($response->_errors[0]->_errorMsg, $response->_errors[0]->_errorNum); // find out the structure of ERP-ONE's errors
+            throw new ErpServiceException($response->_errors[0]->_errorMsg, $response->_errors[0]->_errorNum); // find out the structure of ERP-ONE's errors
         }
 
         $this->_grantToken = $response->grant_token;
@@ -73,9 +95,26 @@ class ErpServerService implements ErpService {
             $this->_accessToken,
             $this->_grantTime
         )));
+
+        if ($closeCurlWhenFinished) {
+            curl_close($ch);
+        }
     }
 
-    private function _refreshToken($ch) {
+    /**
+     * Refreshes API token from ERP if expired
+     * 
+     * @param resource $ch
+     * @return null
+     */
+    private function _refreshToken($ch = null) {
+
+        $closeCurlWhenFinished = false;
+
+        if ($ch === null) {
+            $ch = curl_init();
+            $closeCurlWhenFinished = true;
+        }
 
         if ($this->_grantTime === null || $this->_grantToken === null || $this->_accessToken === null) {
             $this->_getGrantToken($ch);
@@ -113,8 +152,22 @@ class ErpServerService implements ErpService {
             $this->_accessToken,
             $this->_grantTime
         )));
+
+        if ($closeCurlWhenFinished) {
+            curl_close($ch);
+        }
+        
     }
 
+    /**
+     * 
+     * @param string $table
+     * @param array $records
+     * @param boolean $triggers
+     * @param resource $ch
+     * @return mixed
+     * @throws ErpServiceException
+     */
     public function create($table, $records, $triggers = true, $ch = null) {
 
         $closeCurlWhenFinished = false;
@@ -151,12 +204,22 @@ class ErpServerService implements ErpService {
         }
 
         if (isset($response->_errors)) {
-            throw new Exception($response->_errors[0]->_errorMsg, $response->_errors[0]->_errorNum); // find out the structure of ERP-ONE's errors
+            throw new ErpServiceException($response->_errors[0]->_errorMsg, $response->_errors[0]->_errorNum); // find out the structure of ERP-ONE's errors
         }
 
         return $response;
     }
 
+    /**
+     * 
+     * @param string $query
+     * @param string $columns
+     * @param integer $limit
+     * @param integer $offset
+     * @param resource $ch
+     * @return mixed
+     * @throws ErpServiceException
+     */
     public function read($query, $columns = "*", $limit = 0, $offset = 0, $ch = null) {
 
         $closeCurlWhenFinished = false;
@@ -189,7 +252,7 @@ class ErpServerService implements ErpService {
         }
 
         if (isset($response->_errors)) {
-            throw new Exception($response->_errors[0]->_errorMsg, $response->_errors[0]->_errorNum); // find out the structure of ERP-ONE's errors
+            throw new ErpServiceException($response->_errors[0]->_errorMsg, $response->_errors[0]->_errorNum); // find out the structure of ERP-ONE's errors
         }
 
         return $response;
@@ -216,7 +279,7 @@ class ErpServerService implements ErpService {
      * @param string $customer
      * @param integer $quantity
      * @param string $uom
-     * @return object
+     * @return mixed
      */
     public function getItemPriceDetails($itemNumber, $customer = null, $quantity = 1, $uom = "EA", $ch = null) {
         $closeCurlWhenFinished = false;
@@ -255,7 +318,7 @@ class ErpServerService implements ErpService {
         }
 
         if (isset($response->_errors)) {
-            throw new Exception($response->_errors[0]->_errorMsg, $response->_errors[0]->_errorNum); // find out the structure of ERP-ONE's errors
+            throw new ErpServiceException($response->_errors[0]->_errorMsg, $response->_errors[0]->_errorNum); // find out the structure of ERP-ONE's errors
         }
 
         return $response;
@@ -317,26 +380,48 @@ class ErpServerService implements ErpService {
         return $response;
     }
 
+    /**
+     * Get the company being used for data access
+     * 
+     * @return string
+     */
     public function getCompany() {
         return $this->_company;
     }
 
+    /**
+     * Get the warehouse being used for product lookups
+     * 
+     * @return string
+     */
     public function getWarehouse() {
         return $this->_warehouse;
     }
 
+    /**
+     * @return ServerProductRepository
+     */
     public function getProductRepository() {
         return new ServerProductRepository($this);
     }
 
+    /**
+     * @return ServerSalesOrderRepository
+     */
     public function getSalesOrderRepository() {
         return new ServerSalesOrderRepository($this);
     }
 
+    /**
+     * @return ServerShipmentRepository
+     */
     public function getShipmentRepository() {
         return new ServerShipmentRepository($this);
     }
 
+    /**
+     * @return ServerInvoiceRepository
+     */
     public function getInvoiceRepository() {
         return new ServerInvoiceRepository($this);
     }

@@ -2,29 +2,15 @@
 
 namespace Williams\ErpBundle\Repository;
 
-use Williams\ErpBundle\Service\ErpClientService;
-
-class ClientProductRepository implements AbstractProductRepository {
-
-    /**
-     * @var ErpClientService
-     */
-    protected $erp;
-
-    public function __construct(ErpClientService $erp) {
-        $this->erp = $erp;
-    }
+class ClientProductRepository extends AbstractClientRepository implements ProductRepositoryInterface {
 
     public function findAll($limit = 1000, $offset = 0) {
 
         $format = 'json';
-        
-        $query = http_build_query(array(
-            'limit' => $limit,
-            'offset' => $offset
-        ));
 
-        $data = file_get_contents($this->erp->getHost() . "/products.{$format}?" . $query);
+        $response = $this->client->get("/products.{$format}", ['query' => ['limit' => $limit, 'offset' => $offset]]);
+        
+        $data = $response->getBody();
 
         $serializer = $this->erp->getSerializer();
 
@@ -36,14 +22,10 @@ class ClientProductRepository implements AbstractProductRepository {
     public function findByTextSearch($searchTerms, $limit = 1000, $offset = 0) {
 
         $format = 'json';
-        
-        $query = http_build_query(array(
-            'search' => $searchTerms,
-            'limit' => $limit,
-            'offset' => $offset
-        ));
 
-        $data = file_get_contents($this->erp->getHost() . "/products.{$format}?" . $query);
+        $response = $this->client->get("/products.{$format}", ['query' => ['limit' => $limit, 'offset' => $offset, 'search' => $searchTerms]]);
+        
+        $data = $response->getBody();
 
         $serializer = $this->erp->getSerializer();
 
@@ -57,7 +39,9 @@ class ClientProductRepository implements AbstractProductRepository {
         
         $format = 'json';
 
-        $data = file_get_contents($this->erp->getHost() . "/products/{$itemNumber}.{$format}");
+        $response = $this->client->get("/products/{$itemNumber}.{$format}");
+        
+        $data = $response->getBody();
 
         $serializer = $this->erp->getSerializer();
 

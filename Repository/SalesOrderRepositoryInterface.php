@@ -2,7 +2,7 @@
 
 namespace Williams\ErpBundle\Repository;
 
-interface AbstractSalesOrderRepository {
+interface SalesOrderRepositoryInterface {
 
     public function findAll($limit = 100, $offset = 0);
     public function findOpen($limit = 100, $offset = 0);

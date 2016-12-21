@@ -27,9 +27,12 @@ class WilliamsErpExtension extends Extension {
             $container->setParameter('erp.appname', $config['erp_server']['appname']);
 
             $loader->load('server_services.yml');
+            
         } else {
 
             $container->setParameter('erp.host', $config['erp_server']['host']);
+            $container->setParameter('erp.username', $config['erp_server']['username']);
+            $container->setParameter('erp.password', $config['erp_server']['password']);
 
             $loader->load('client_services.yml');
         }

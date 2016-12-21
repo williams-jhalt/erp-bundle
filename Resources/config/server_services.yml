@@ -1,3 +1,15 @@
+fos_rest:
+    routing_loader:
+        default_format: json
+    param_fetcher_listener: true
+    body_listener: true
+    body_converter:
+        enabled: true
+    format_listener:
+        enabled: true
+    view:
+        view_response_listener: 'force'
+
 services:
     williams_erp.service:
         class: Williams\ErpBundle\Service\ErpServerService
