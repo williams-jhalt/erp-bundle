@@ -2,6 +2,8 @@
 
 namespace Williams\ErpBundle\Repository;
 
+use Williams\ErpBundle\Model\Order;
+
 interface SalesOrderRepositoryInterface {
 
     public function findAll($limit = 100, $offset = 0);

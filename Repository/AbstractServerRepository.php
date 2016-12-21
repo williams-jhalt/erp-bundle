@@ -2,6 +2,8 @@
 
 namespace Williams\ErpBundle\Repository;
 
+use Williams\ErpBundle\Service\ErpServerService;
+
 abstract class AbstractServerRepository {
 
     /**
