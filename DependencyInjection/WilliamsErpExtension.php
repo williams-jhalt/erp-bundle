@@ -2,12 +2,13 @@
 
 namespace Williams\ErpBundle\DependencyInjection;
 
+use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
+use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
-use Symfony\Component\Config\FileLocator;
 
-class WilliamsErpExtension extends Extension {
+class WilliamsErpExtension extends Extension implements PrependExtensionInterface {
 
     public function prepend(ContainerBuilder $container) {
 
