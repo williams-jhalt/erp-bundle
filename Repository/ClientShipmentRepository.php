@@ -8,7 +8,7 @@ class ClientShipmentRepository extends AbstractClientRepository implements Shipm
 
         $format = 'json';
 
-        $response = $this->client->get("/shipments.{$format}", ['query' => ['limit' => $limit, 'offset' => $offset]]);
+        $response = $this->client->get("shipments.{$format}", ['query' => ['limit' => $limit, 'offset' => $offset]]);
         
         $data = $response->getBody();
 
@@ -23,7 +23,7 @@ class ClientShipmentRepository extends AbstractClientRepository implements Shipm
 
         $format = 'json';
 
-        $response = $this->client->get("/shipments/{$orderNumber}.{$format}");
+        $response = $this->client->get("shipments/{$orderNumber}.{$format}");
         
         $data = $response->getBody();
 
@@ -38,7 +38,7 @@ class ClientShipmentRepository extends AbstractClientRepository implements Shipm
 
         $format = 'json';
 
-        $response = $this->client->get("/shipments/{$orderNumber}/{$recordSequence}.{$format}");
+        $response = $this->client->get("shipments/{$orderNumber}/{$recordSequence}.{$format}");
         
         $data = $response->getBody();
 
@@ -54,7 +54,7 @@ class ClientShipmentRepository extends AbstractClientRepository implements Shipm
 
         $format = 'json';
 
-        $response = $this->client->get("/shipments/{$orderNumber}/{$recordSequence}/items.{$format}");
+        $response = $this->client->get("shipments/{$orderNumber}/{$recordSequence}/items.{$format}");
         
         $data = $response->getBody();
 
@@ -69,7 +69,7 @@ class ClientShipmentRepository extends AbstractClientRepository implements Shipm
 
         $format = 'json';
 
-        $response = $this->client->get("/shipments/{$orderNumber}/packages.{$format}");
+        $response = $this->client->get("shipments/{$orderNumber}/packages.{$format}");
         
         $data = $response->getBody();
 

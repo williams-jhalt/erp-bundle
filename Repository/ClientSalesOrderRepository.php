@@ -10,7 +10,7 @@ class ClientSalesOrderRepository extends AbstractClientRepository implements Sal
 
         $format = 'json';
 
-        $response = $this->client->get("/orders.{$format}", ['query' => ['limit' => $limit, 'offset' => $offset]]);
+        $response = $this->client->get("orders.{$format}", ['query' => ['limit' => $limit, 'offset' => $offset]]);
         
         $data = $response->getBody();
 
@@ -25,7 +25,7 @@ class ClientSalesOrderRepository extends AbstractClientRepository implements Sal
 
         $format = 'json';
 
-        $response = $this->client->get("/orders.{$format}", ['query' => ['limit' => $limit, 'offset' => $offset, 'open' => true]]);
+        $response = $this->client->get("orders.{$format}", ['query' => ['limit' => $limit, 'offset' => $offset, 'open' => true]]);
         
         $data = $response->getBody();
 
@@ -40,7 +40,7 @@ class ClientSalesOrderRepository extends AbstractClientRepository implements Sal
 
         $format = 'json';
 
-        $response = $this->client->get("/orders.{$format}", ['query' => ['search' => $searchTerms]]);
+        $response = $this->client->get("orders.{$format}", ['query' => ['search' => $searchTerms]]);
         
         $data = $response->getBody();
 
@@ -55,7 +55,7 @@ class ClientSalesOrderRepository extends AbstractClientRepository implements Sal
 
         $format = 'json';
 
-        $response = $this->client->get("/orders/{$orderNumber}.{$format}");
+        $response = $this->client->get("orders/{$orderNumber}.{$format}");
         
         $data = $response->getBody();
 
@@ -72,7 +72,7 @@ class ClientSalesOrderRepository extends AbstractClientRepository implements Sal
 
         $id = $webReferenceNumber . "-" . $customerNumber;
 
-        $response = $this->client->get("/weborders/{$id}.{$format}");
+        $response = $this->client->get("weborders/{$id}.{$format}");
         
         $data = $response->getBody();
 
@@ -87,7 +87,7 @@ class ClientSalesOrderRepository extends AbstractClientRepository implements Sal
 
         $format = 'json';
 
-        $response = $this->client->get("/orders/{$orderNumber}/items.{$format}");
+        $response = $this->client->get("orders/{$orderNumber}/items.{$format}");
         
         $data = $response->getBody();
 
@@ -102,7 +102,7 @@ class ClientSalesOrderRepository extends AbstractClientRepository implements Sal
 
         $serializer = $this->erp->getSerializer();
 
-        $this->client->post("/orders.{$format}", [
+        $this->client->post("orders.{$format}", [
             'headers' => [
                 'Content-Type' => 'application/json'
             ],

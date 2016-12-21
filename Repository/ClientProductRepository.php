@@ -8,7 +8,7 @@ class ClientProductRepository extends AbstractClientRepository implements Produc
 
         $format = 'json';
 
-        $response = $this->client->get("/products.{$format}", ['query' => ['limit' => $limit, 'offset' => $offset]]);
+        $response = $this->client->get("products.{$format}", ['query' => ['limit' => $limit, 'offset' => $offset]]);
         
         $data = $response->getBody();
 
@@ -23,7 +23,7 @@ class ClientProductRepository extends AbstractClientRepository implements Produc
 
         $format = 'json';
 
-        $response = $this->client->get("/products.{$format}", ['query' => ['limit' => $limit, 'offset' => $offset, 'search' => $searchTerms]]);
+        $response = $this->client->get("products.{$format}", ['query' => ['limit' => $limit, 'offset' => $offset, 'search' => $searchTerms]]);
         
         $data = $response->getBody();
 
@@ -39,7 +39,7 @@ class ClientProductRepository extends AbstractClientRepository implements Produc
         
         $format = 'json';
 
-        $response = $this->client->get("/products/{$itemNumber}.{$format}");
+        $response = $this->client->get("products/{$itemNumber}.{$format}");
         
         $data = $response->getBody();
 

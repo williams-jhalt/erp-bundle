@@ -8,7 +8,7 @@ class ClientInvoiceRepository extends AbstractClientRepository implements Invoic
 
         $format = 'json';
 
-        $response = $this->client->get("/invoices.{$format}", [ 'query' => ['limit' => $limit, 'offset' => $offset]]);
+        $response = $this->client->get("invoices.{$format}", [ 'query' => ['limit' => $limit, 'offset' => $offset]]);
         
         $data = $response->getBody();
 
@@ -24,7 +24,7 @@ class ClientInvoiceRepository extends AbstractClientRepository implements Invoic
 
         $format = 'json';
 
-        $response = $this->client->get("/invoices/{$orderNumber}.{$format}");
+        $response = $this->client->get("invoices/{$orderNumber}.{$format}");
         
         $data = $response->getBody();
 
@@ -39,7 +39,7 @@ class ClientInvoiceRepository extends AbstractClientRepository implements Invoic
 
         $format = 'json';
 
-        $response = $this->client->get("/invoices/{$orderNumber}/{$recordSequence}.{$format}");
+        $response = $this->client->get("invoices/{$orderNumber}/{$recordSequence}.{$format}");
         
         $data = $response->getBody();
 
@@ -53,9 +53,9 @@ class ClientInvoiceRepository extends AbstractClientRepository implements Invoic
 
     public function getItems($orderNumber, $recordSequence = 1) {
 
-        $format = 'json';
-        
-        $response = file_get_contents($this->erp->getHost() . "/invoices/{$orderNumber}/{$recordSequence}/items.{$format}");
+        $format = 'json';        
+
+        $response = $this->client->get("invoices/{$orderNumber}/{$recordSequence}/items.{$format}");
         
         $data = $response->getBody();
 
