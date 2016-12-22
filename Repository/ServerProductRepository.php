@@ -35,7 +35,8 @@ class ServerProductRepository extends AbstractServerRepository implements Produc
                 . "item.product_line,"
                 . "item.date_added,"
                 . "item.web_item,"
-                . "item.is_deleted";
+                . "item.is_deleted,"
+                . "item.upc1";
 
         $response = $this->erp->read($query, $fields, $limit, $offset);
 
@@ -61,6 +62,7 @@ class ServerProductRepository extends AbstractServerRepository implements Produc
             $item->setWebItem($erpItem->item_web_item);
             $item->setWarehouse($erpItem->wa_item_warehouse);
             $item->setUnitOfMeasure($erpItem->item_um_display);
+            $item->setBarcode($erpItem->item_upc1);
             $result[] = $item;
         }
 
@@ -96,7 +98,8 @@ class ServerProductRepository extends AbstractServerRepository implements Produc
                 . "item.product_line,"
                 . "item.date_added,"
                 . "item.web_item,"
-                . "item.is_deleted";
+                . "item.is_deleted,"
+                . "item.upc1";
 
         $response = $this->erp->read($query, $fields, $limit, $offset);
 
@@ -122,6 +125,7 @@ class ServerProductRepository extends AbstractServerRepository implements Produc
             $item->setWebItem($erpItem->item_web_item);
             $item->setWarehouse($erpItem->wa_item_warehouse);
             $item->setUnitOfMeasure($erpItem->item_um_display);
+            $item->setBarcode($erpItem->item_upc1);
             $result[] = $item;
         }
 
@@ -155,7 +159,8 @@ class ServerProductRepository extends AbstractServerRepository implements Produc
                 . "item.product_line,"
                 . "item.date_added,"
                 . "item.web_item,"
-                . "item.is_deleted";
+                . "item.is_deleted,"
+                . "item.upc1";
 
         $response = $this->erp->read($query, $fields, 1);
 
@@ -184,6 +189,7 @@ class ServerProductRepository extends AbstractServerRepository implements Produc
         $item->setWebItem($erpItem->item_web_item);
         $item->setWarehouse($erpItem->wa_item_warehouse);
         $item->setUnitOfMeasure($erpItem->item_um_display);
+        $item->setBarcode($erpItem->item_upc1);
 
         return $item;
     }
