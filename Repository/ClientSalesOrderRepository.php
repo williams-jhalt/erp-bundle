@@ -3,9 +3,18 @@
 namespace Williams\ErpBundle\Repository;
 
 use Williams\ErpBundle\Model\Order;
+use Williams\ErpBundle\Model\SalesOrder;
+use Williams\ErpBundle\Model\SalesOrderCollection;
+use Williams\ErpBundle\Model\SalesOrderItemCollection;
 
 class ClientSalesOrderRepository extends AbstractClientRepository implements SalesOrderRepositoryInterface {
 
+    /**
+     * 
+     * @param integer $limit
+     * @param integer $offset
+     * @return SalesOrderCollection
+     */
     public function findAll($limit = 100, $offset = 0) {
 
         $format = 'json';
@@ -21,6 +30,12 @@ class ClientSalesOrderRepository extends AbstractClientRepository implements Sal
         return $result;
     }
 
+    /**
+     * 
+     * @param integer $limit
+     * @param integer $offset
+     * @return SalesOrderCollection
+     */
     public function findOpen($limit = 100, $offset = 0) {
 
         $format = 'json';
@@ -36,6 +51,11 @@ class ClientSalesOrderRepository extends AbstractClientRepository implements Sal
         return $result;
     }
 
+    /**
+     * 
+     * @param string $searchTerms
+     * @return SalesOrderCollection
+     */
     public function findByTextSearch($searchTerms) {
 
         $format = 'json';
@@ -51,6 +71,11 @@ class ClientSalesOrderRepository extends AbstractClientRepository implements Sal
         return $result;
     }
 
+    /**
+     * 
+     * @param integer $orderNumber
+     * @return SalesOrder
+     */
     public function get($orderNumber) {
 
         $format = 'json';
@@ -66,6 +91,12 @@ class ClientSalesOrderRepository extends AbstractClientRepository implements Sal
         return $result;
     }
 
+    /**
+     * 
+     * @param string $webReferenceNumber
+     * @param string $customerNumber
+     * @return SalesOrder
+     */
     public function getByWebReferenceNumberAndCustomerNumber($webReferenceNumber, $customerNumber) {
 
         $format = 'json';
@@ -83,6 +114,11 @@ class ClientSalesOrderRepository extends AbstractClientRepository implements Sal
         return $result;
     }
 
+    /**
+     * 
+     * @param integer $orderNumber
+     * @return SalesOrderItemCollection
+     */
     public function getItems($orderNumber) {
 
         $format = 'json';
@@ -98,6 +134,11 @@ class ClientSalesOrderRepository extends AbstractClientRepository implements Sal
         return $result;
     }
 
+    /**
+     * 
+     * @param Order $order
+     * @return boolean
+     */
     public function submitOrder(Order $order) {
 
         $serializer = $this->erp->getSerializer();
@@ -108,6 +149,8 @@ class ClientSalesOrderRepository extends AbstractClientRepository implements Sal
             ],
             'body' => $serializer->serialize($order, 'json')
         ]);
+        
+        return true;
         
     }
 

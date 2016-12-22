@@ -28,7 +28,7 @@ class ShipmentItemsController extends FOSRestController {
         
         $items = $repo->getItems((int)$orderNumber, (int)$recordSequence);
         
-        $view = $this->view(new ShipmentItemCollection($items), 200);
+        $view = $this->view($items, 200);
         
         return $this->handleView($view);
         

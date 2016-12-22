@@ -13,10 +13,19 @@ class ShipmentItem extends SalesOrderItem {
      */
     protected $quantityShipped;
 
+    /**
+     * 
+     * @return integer
+     */
     public function getQuantityShipped() {
         return $this->quantityShipped;
     }
 
+    /**
+     * 
+     * @param integer $quantityShipped
+     * @return ShipmentItem
+     */
     public function setQuantityShipped($quantityShipped) {
         $this->quantityShipped = $quantityShipped;
         return $this;

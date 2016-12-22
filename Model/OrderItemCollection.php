@@ -19,12 +19,22 @@ class OrderItemCollection {
         $this->items = $items;
     }
 
+    /**
+     * 
+     * @return OrderItem[]
+     */
     function getItems() {
         return $this->items;
     }
 
+    /**
+     * 
+     * @param OrderItem[] $items
+     * @return OrderItemCollection
+     */
     function setItems(array $items) {
         $this->items = $items;
+        return $this;
     }
 
 }

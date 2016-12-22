@@ -28,7 +28,7 @@ class InvoiceItemsController extends FOSRestController {
         
         $items = $repo->getItems((int)$orderNumber, (int)$recordSequence);
         
-        $view = $this->view(new InvoiceItemCollection($items), 200);
+        $view = $this->view($items, 200);
         
         return $this->handleView($view);
         

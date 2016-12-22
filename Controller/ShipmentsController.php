@@ -28,7 +28,7 @@ class ShipmentsController extends FOSRestController {
         
         $shipments = $repo->findByOrderNumber($orderNumber);
         
-        $view = $this->view(new ShipmentCollection($shipments), 200);
+        $view = $this->view($shipments, 200);
         
         return $this->handleView($view);
         

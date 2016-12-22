@@ -12,10 +12,19 @@ class InvoiceItem extends SalesOrderItem {
      */
     protected $quantityBilled;
 
+    /**
+     * 
+     * @return integer
+     */
     public function getQuantityBilled() {
         return $this->quantityBilled;
     }
 
+    /**
+     * 
+     * @param integer $quantityBilled
+     * @return InvoiceItem
+     */
     public function setQuantityBilled($quantityBilled) {
         $this->quantityBilled = $quantityBilled;
         return $this;

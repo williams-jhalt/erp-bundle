@@ -18,19 +18,37 @@ class OrderItem {
      */
     protected $quantityOrdered;
 
+    /**
+     * 
+     * @return string
+     */
     public function getItemNumber() {
         return $this->itemNumber;
     }
 
+    /**
+     * 
+     * @return integer
+     */
     public function getQuantityOrdered() {
         return $this->quantityOrdered;
     }
 
+    /**
+     * 
+     * @param string $itemNumber
+     * @return OrderItem
+     */
     public function setItemNumber($itemNumber) {
         $this->itemNumber = $itemNumber;
         return $this;
     }
 
+    /**
+     * 
+     * @param integer $quantityOrdered
+     * @return OrderItem
+     */
     public function setQuantityOrdered($quantityOrdered) {
         $this->quantityOrdered = $quantityOrdered;
         return $this;

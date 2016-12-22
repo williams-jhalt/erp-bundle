@@ -77,7 +77,7 @@ class SalesOrdersController extends FOSRestController {
             $salesOrders = $repo->findOpen($limit, $offset);
         }
 
-        $view = $this->view(new SalesOrderCollection($salesOrders), 200);
+        $view = $this->view($salesOrders, 200);
 
         return $this->handleView($view);
     }

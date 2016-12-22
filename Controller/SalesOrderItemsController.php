@@ -27,7 +27,7 @@ class SalesOrderItemsController extends FOSRestController {
 
         $items = $repo->getItems((int)$orderNumber);
 
-        $view = $this->view(new SalesOrderItemCollection($items), 200);
+        $view = $this->view($items, 200);
 
         return $this->handleView($view);
     }

@@ -19,12 +19,22 @@ class ProductCollection {
         $this->products = $products;
     }
 
+    /**
+     * 
+     * @return Product[]
+     */
     function getProducts() {
         return $this->products;
     }
 
+    /**
+     * 
+     * @param Product[] $products
+     * @return ProductCollection
+     */
     function setProducts(array $products) {
         $this->products = $products;
+        return $this;
     }
 
 }

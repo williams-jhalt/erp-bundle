@@ -2,8 +2,18 @@
 
 namespace Williams\ErpBundle\Repository;
 
+use Williams\ErpBundle\Model\Invoice;
+use Williams\ErpBundle\Model\InvoiceCollection;
+use Williams\ErpBundle\Model\InvoiceItemCollection;
+
 class ClientInvoiceRepository extends AbstractClientRepository implements InvoiceRepositoryInterface {
 
+    /**
+     * 
+     * @param integer $limit
+     * @param integer $offset
+     * @return InvoiceCollection
+     */
     public function findAll($limit = 1000, $offset = 0) {
 
         $format = 'json';
@@ -20,6 +30,11 @@ class ClientInvoiceRepository extends AbstractClientRepository implements Invoic
         
     }
 
+    /**
+     * 
+     * @param integer $orderNumber
+     * @return InvoiceCollection
+     */
     public function findByOrderNumber($orderNumber) {
 
         $format = 'json';
@@ -35,6 +50,12 @@ class ClientInvoiceRepository extends AbstractClientRepository implements Invoic
         return $result;
     }
 
+    /**
+     * 
+     * @param integer $orderNumber
+     * @param integer $recordSequence
+     * @return Invoice
+     */
     public function get($orderNumber, $recordSequence = 1) {
 
         $format = 'json';
@@ -51,6 +72,12 @@ class ClientInvoiceRepository extends AbstractClientRepository implements Invoic
         
     }
 
+    /**
+     * 
+     * @param integer $orderNumber
+     * @param integer $recordSequence
+     * @return InvoiceItemCollection
+     */
     public function getItems($orderNumber, $recordSequence = 1) {
 
         $format = 'json';        

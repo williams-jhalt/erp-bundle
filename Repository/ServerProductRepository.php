@@ -4,9 +4,16 @@ namespace Williams\ErpBundle\Repository;
 
 use DateTime;
 use Williams\ErpBundle\Model\Product;
+use Williams\ErpBundle\Model\ProductCollection;
 
 class ServerProductRepository extends AbstractServerRepository implements ProductRepositoryInterface {
 
+    /**
+     * 
+     * @param integer $limit
+     * @param integer $offset
+     * @return ProductCollection
+     */
     public function findAll($limit = 1000, $offset = 0) {
 
         $query = "FOR EACH item NO-LOCK "
@@ -57,9 +64,16 @@ class ServerProductRepository extends AbstractServerRepository implements Produc
             $result[] = $item;
         }
 
-        return $result;
+        return new ProductCollection($result);
     }
 
+    /**
+     * 
+     * @param string $searchTerms
+     * @param integer $limit
+     * @param integer $offset
+     * @return ProductCollection
+     */
     public function findByTextSearch($searchTerms, $limit = 1000, $offset = 0) {
 
         $query = "FOR EACH item NO-LOCK "
@@ -111,9 +125,14 @@ class ServerProductRepository extends AbstractServerRepository implements Produc
             $result[] = $item;
         }
 
-        return $result;
+        return new ProductCollection($result);
     }
 
+    /**
+     * 
+     * @param string $itemNumber
+     * @return Product
+     */
     public function getByItemNumber($itemNumber) {
 
         $query = "FOR EACH item NO-LOCK "

@@ -2,8 +2,17 @@
 
 namespace Williams\ErpBundle\Repository;
 
+use Williams\ErpBundle\Model\Product;
+use Williams\ErpBundle\Model\ProductCollection;
+
 class ClientProductRepository extends AbstractClientRepository implements ProductRepositoryInterface {
 
+    /**
+     * 
+     * @param integer $limit
+     * @param integer $offset
+     * @return ProductCollection
+     */
     public function findAll($limit = 1000, $offset = 0) {
 
         $format = 'json';
@@ -19,6 +28,13 @@ class ClientProductRepository extends AbstractClientRepository implements Produc
         return $result;
     }
 
+    /**
+     * 
+     * @param string $searchTerms
+     * @param integer $limit
+     * @param integer $offset
+     * @return ProductCollection
+     */
     public function findByTextSearch($searchTerms, $limit = 1000, $offset = 0) {
 
         $format = 'json';
@@ -35,6 +51,11 @@ class ClientProductRepository extends AbstractClientRepository implements Produc
         
     }
 
+    /**
+     * 
+     * @param string $itemNumber
+     * @return Product
+     */
     public function getByItemNumber($itemNumber) {
         
         $format = 'json';

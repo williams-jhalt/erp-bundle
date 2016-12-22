@@ -4,10 +4,18 @@ namespace Williams\ErpBundle\Repository;
 
 use DateTime;
 use Williams\ErpBundle\Model\Invoice;
+use Williams\ErpBundle\Model\InvoiceCollection;
 use Williams\ErpBundle\Model\InvoiceItem;
+use Williams\ErpBundle\Model\InvoiceItemCollection;
 
 class ServerInvoiceRepository extends AbstractServerRepository implements InvoiceRepositoryInterface {
 
+    /**
+     * 
+     * @param integer $limit
+     * @param integer $offset
+     * @return InvoiceCollection
+     */
     public function findAll($limit = 1000, $offset = 0) {
 
         $query = "FOR EACH oe_head NO-LOCK "
@@ -73,9 +81,14 @@ class ServerInvoiceRepository extends AbstractServerRepository implements Invoic
             $result[] = $item;
         }
 
-        return $result;
+        return new InvoiceCollection($result);
     }
 
+    /**
+     * 
+     * @param integer $orderNumber
+     * @return InvoiceCollection
+     */
     public function findByOrderNumber($orderNumber) {
 
         $query = "FOR EACH oe_head NO-LOCK "
@@ -142,9 +155,15 @@ class ServerInvoiceRepository extends AbstractServerRepository implements Invoic
             $result[] = $item;
         }
 
-        return $result;
+        return new InvoiceCollection($result);
     }
 
+    /**
+     * 
+     * @param integer $orderNumber
+     * @param integer $recordSequence
+     * @return Invoice
+     */
     public function get($orderNumber, $recordSequence = 1) {
 
         $query = "FOR EACH oe_head NO-LOCK "
@@ -211,6 +230,12 @@ class ServerInvoiceRepository extends AbstractServerRepository implements Invoic
         return $item;
     }
 
+    /**
+     * 
+     * @param integer $orderNumber
+     * @param integer $recordSequence
+     * @return InvoiceItemCollection
+     */
     public function getItems($orderNumber, $recordSequence = 1) {
 
         $query = "FOR EACH oe_line NO-LOCK "
@@ -232,7 +257,7 @@ class ServerInvoiceRepository extends AbstractServerRepository implements Invoic
             $result[] = $item;
         }
 
-        return $result;
+        return new InvoiceItemCollection($result);
     }
 
 }

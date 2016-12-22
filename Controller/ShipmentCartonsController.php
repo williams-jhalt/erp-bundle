@@ -27,7 +27,7 @@ class ShipmentCartonsController extends FOSRestController {
         
         $items = $repo->getPackages((int)$orderNumber);        
         
-        $view = $this->view(new ShipmentPackageCollection($items), 200);
+        $view = $this->view($items, 200);
         
         return $this->handleView($view);
         

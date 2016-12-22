@@ -40,7 +40,7 @@ class ProductsController extends FOSRestController {
             $products = $productRepo->findAll($limit, $offset);
         }
         
-        $view = $this->view(new ProductCollection($products), 200);
+        $view = $this->view($products, 200);
         
         return $this->handleView($view);
         

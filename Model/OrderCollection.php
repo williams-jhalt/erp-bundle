@@ -4,7 +4,7 @@ namespace Williams\ErpBundle\Model;
 
 use JMS\Serializer\Annotation as JMS;
 
-class InvoiceCollection {
+class OrderCollection {
 
     /**
      * @JMS\Type("array<Williams\ErpBundle\Model\Order>")
@@ -19,12 +19,22 @@ class InvoiceCollection {
         $this->orders = $orders;
     }
 
+    /**
+     * 
+     * @return Order[]
+     */
     function getOrders() {
         return $this->orders;
     }
 
+    /**
+     * 
+     * @param Order[] $orders
+     * @return OrderCollection
+     */
     function setOrders(array $orders) {
         $this->orders = $orders;
+        return $this;
     }
 
 }

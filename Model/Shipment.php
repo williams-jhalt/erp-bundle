@@ -20,19 +20,37 @@ class Shipment extends SalesOrder {
      */
     protected $shipDate;
 
+    /**
+     * 
+     * @return string
+     */
     public function getManifestId() {
         return $this->manifestId;
     }
 
+    /**
+     * 
+     * @return DateTime
+     */
     public function getShipDate() {
         return $this->shipDate;
     }
 
+    /**
+     * 
+     * @param string $manifestId
+     * @return Shipment
+     */
     public function setManifestId($manifestId) {
         $this->manifestId = $manifestId;
         return $this;
     }
 
+    /**
+     * 
+     * @param DateTime $shipDate
+     * @return Shipment
+     */
     public function setShipDate($shipDate) {
         $this->shipDate = $shipDate;
         return $this;

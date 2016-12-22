@@ -19,12 +19,22 @@ class ShipmentItemCollection {
         $this->items = $items;
     }
 
+    /**
+     * 
+     * @return ShipmentItem[]
+     */
     function getItems() {
         return $this->items;
     }
 
+    /**
+     * 
+     * @param ShipmentItem[] $items
+     * @return ShipmentItemCollection
+     */
     function setItems(array $items) {
         $this->items = $items;
+        return $this;
     }
 
 }

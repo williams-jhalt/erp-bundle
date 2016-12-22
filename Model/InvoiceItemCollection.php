@@ -19,12 +19,23 @@ class InvoiceItemCollection {
         $this->items = $items;
     }
 
+    /**
+     * 
+     * @return InvoiceItem[]
+     */
     function getItems() {
         return $this->items;
     }
 
+    /**
+     * 
+     * @param InvoiceItem[] $items
+     * 
+     * @return InvoiceItem[]
+     */
     function setItems(array $items) {
         $this->items = $items;
+        return $this;
     }
 
 }

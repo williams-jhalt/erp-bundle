@@ -2,8 +2,19 @@
 
 namespace Williams\ErpBundle\Repository;
 
+use Williams\ErpBundle\Model\Shipment;
+use Williams\ErpBundle\Model\ShipmentCollection;
+use Williams\ErpBundle\Model\ShipmentItemCollection;
+use Williams\ErpBundle\Model\ShipmentPackageCollection;
+
 class ClientShipmentRepository extends AbstractClientRepository implements ShipmentRepositoryInterface {
 
+    /**
+     * 
+     * @param integer $limit
+     * @param integer $offset
+     * @return ShipmentCollection
+     */
     public function findAll($limit = 1000, $offset = 0) {
 
         $format = 'json';
@@ -19,6 +30,11 @@ class ClientShipmentRepository extends AbstractClientRepository implements Shipm
         return $result;
     }
 
+    /**
+     * 
+     * @param integer $orderNumber
+     * @return ShipmentCollection
+     */
     public function findByOrderNumber($orderNumber) {
 
         $format = 'json';
@@ -34,6 +50,12 @@ class ClientShipmentRepository extends AbstractClientRepository implements Shipm
         return $result;
     }
 
+    /**
+     * 
+     * @param integer $orderNumber
+     * @param integer $recordSequence
+     * @return Shipment
+     */
     public function get($orderNumber, $recordSequence = 1) {
 
         $format = 'json';
@@ -50,6 +72,12 @@ class ClientShipmentRepository extends AbstractClientRepository implements Shipm
         
     }
 
+    /**
+     * 
+     * @param integer $orderNumber
+     * @param integer $recordSequence
+     * @return ShipmentItemCollection
+     */
     public function getItems($orderNumber, $recordSequence = 1) {
 
         $format = 'json';
@@ -65,6 +93,11 @@ class ClientShipmentRepository extends AbstractClientRepository implements Shipm
         return $result;
     }
 
+    /**
+     * 
+     * @param integer $orderNumber
+     * @return ShipmentPackageCollection
+     */
     public function getPackages($orderNumber) {
 
         $format = 'json';

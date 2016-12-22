@@ -19,12 +19,22 @@ class SalesOrderCollection {
         $this->salesOrders = $salesOrders;
     }
 
+    /**
+     * 
+     * @return SalesOrder[]
+     */
     function getSalesOrders() {
         return $this->salesOrders;
     }
 
+    /**
+     * 
+     * @param SalesOrder[] $salesOrders
+     * @return SalesOrderCollection
+     */
     function setSalesOrders(array $salesOrders) {
         $this->salesOrders = $salesOrders;
+        return $this;
     }
 
 }

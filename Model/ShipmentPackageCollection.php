@@ -19,12 +19,22 @@ class ShipmentPackageCollection {
         $this->shipmentPackages = $shipmentPackages;
     }
 
+    /**
+     * 
+     * @return ShipmentPackage[]
+     */
     function getShipmentPackages() {
         return $this->shipmentPackages;
     }
 
+    /**
+     * 
+     * @param ShipmentPackage[] $shipmentPackages
+     * @return ShipmentPackageCollection
+     */
     function setShipmentPackages(array $shipmentPackages) {
         $this->shipmentPackages = $shipmentPackages;
+        return $this;
     }
 
 }

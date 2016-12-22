@@ -5,10 +5,19 @@ namespace Williams\ErpBundle\Repository;
 use DateTime;
 use Williams\ErpBundle\Model\Order;
 use Williams\ErpBundle\Model\SalesOrder;
+use Williams\ErpBundle\Model\SalesOrderCollection;
 use Williams\ErpBundle\Model\SalesOrderItem;
+use Williams\ErpBundle\Model\SalesOrderItemCollection;
 
 class ServerSalesOrderRepository extends AbstractServerRepository implements SalesOrderRepositoryInterface {
 
+    /**
+     * 
+     * @param string $query
+     * @param integer $limit
+     * @param integer $offset
+     * @return SalesOrderCollection
+     */
     private function _find($query, $limit = 100, $offset = 0) {
 
         $fields = "adr,"
@@ -64,9 +73,15 @@ class ServerSalesOrderRepository extends AbstractServerRepository implements Sal
             $result[] = $item;
         }
 
-        return $result;
+        return new SalesOrderCollection($result);
     }
 
+    /**
+     * 
+     * @param integer $limit
+     * @param integer $offset
+     * @return SalesOrderCollection
+     */
     public function findAll($limit = 100, $offset = 0) {
 
         $query = "FOR EACH oe_head NO-LOCK "
@@ -77,6 +92,12 @@ class ServerSalesOrderRepository extends AbstractServerRepository implements Sal
         return $this->_find($query, $limit, $offset);
     }
 
+    /**
+     * 
+     * @param integer $limit
+     * @param integer $offset
+     * @return SalesOrderCollection
+     */
     public function findOpen($limit = 100, $offset = 0) {
 
         $query = "FOR EACH oe_head NO-LOCK "
@@ -88,6 +109,11 @@ class ServerSalesOrderRepository extends AbstractServerRepository implements Sal
         return $this->_find($query, $limit, $offset);
     }
 
+    /**
+     * 
+     * @param string $searchTerms
+     * @return SalesOrderCollection
+     */
     public function findByTextSearch($searchTerms) {
 
         $query = "FOR EACH oe_head NO-LOCK "
@@ -99,6 +125,11 @@ class ServerSalesOrderRepository extends AbstractServerRepository implements Sal
         return $this->_find($query, 100);
     }
 
+    /**
+     * 
+     * @param integer $orderNumber
+     * @return SalesOrder
+     */
     public function get($orderNumber) {
 
         $query = "FOR EACH oe_head NO-LOCK "
@@ -159,6 +190,12 @@ class ServerSalesOrderRepository extends AbstractServerRepository implements Sal
         return $item;
     }
 
+    /**
+     * 
+     * @param string $webReferenceNumber
+     * @param string $customerNumber
+     * @return SalesOrder
+     */
     public function getByWebReferenceNumberAndCustomerNumber($webReferenceNumber, $customerNumber) {
 
         $query = "FOR EACH oe_head NO-LOCK "
@@ -220,6 +257,11 @@ class ServerSalesOrderRepository extends AbstractServerRepository implements Sal
         return $item;
     }
 
+    /**
+     * 
+     * @param integer $orderNumber
+     * @return SalesOrderItemCollection
+     */
     public function getItems($orderNumber) {
 
         $query = "FOR EACH oe_line NO-LOCK "
@@ -244,9 +286,14 @@ class ServerSalesOrderRepository extends AbstractServerRepository implements Sal
             $result[] = $item;
         }
 
-        return $result;
+        return new SalesOrderItemCollection($result);
     }
 
+    /**
+     * 
+     * @param Order $order
+     * @return boolean
+     */
     public function submitOrder(Order $order) {
 
         $data = array(
@@ -258,7 +305,7 @@ class ServerSalesOrderRepository extends AbstractServerRepository implements Sal
                 $order->getShipToAddress2(),
                 $order->getShipToAddress3(),
                 $order->getShipToCity()
-            ),            
+            ),
             's_st' => $order->getShipToState(),
             's_postal_code' => $order->getShipToZip(),
             's_country_code' => $order->getShipToCountry(),
@@ -268,8 +315,8 @@ class ServerSalesOrderRepository extends AbstractServerRepository implements Sal
             'ship_via_code' => $order->getShipViaCode(),
             'residential' => $order->getResidential()
         );
-        
-        $response = $this->erp->create('ec_oehead', array($data), false);
+
+        $this->erp->create('ec_oehead', array($data), false);
 
         $itemData = array();
 
@@ -294,13 +341,9 @@ class ServerSalesOrderRepository extends AbstractServerRepository implements Sal
             );
         }
 
-        $response2 = $this->erp->create('ec_oeline', $itemData, false);
-        
-        return array(
-            'order_response' => $response,
-            'item_response' => $response2
-        );
-        
+        $this->erp->create('ec_oeline', $itemData, false);
+
+        return true;
     }
 
 }

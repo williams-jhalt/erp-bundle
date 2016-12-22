@@ -27,7 +27,7 @@ class InvoicesController extends FOSRestController {
         
         $invoices = $repo->findByOrderNumber($orderNumber);
         
-        $view = $this->view(new InvoiceCollection($invoices), 200);
+        $view = $this->view($invoices, 200);
         
         return $this->handleView($view);
         

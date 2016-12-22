@@ -19,10 +19,19 @@ class SalesOrderItemCollection {
         $this->items = $items;
     }
 
+    /**
+     * 
+     * @return SalesOrderItem[]
+     */
     function getItems() {
         return $this->items;
     }
 
+    /**
+     * 
+     * @param SalesOrderItem[] $items
+     * @return SalesOrderItemCollection
+     */
     function setItems(array $items) {
         $this->items = $items;
     }

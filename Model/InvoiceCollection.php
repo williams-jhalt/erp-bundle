@@ -19,10 +19,18 @@ class InvoiceCollection {
         $this->invoices = $invoices;
     }
 
+    /**
+     * 
+     * @return Invoice[]
+     */
     function getInvoices() {
         return $this->invoices;
     }
 
+    /**
+     * 
+     * @param Invoice[] $invoices
+     */
     function setInvoices($invoices) {
         $this->invoices = $invoices;
     }

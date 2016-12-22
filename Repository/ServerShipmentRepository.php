@@ -4,12 +4,21 @@ namespace Williams\ErpBundle\Repository;
 
 use DateTime;
 use Williams\ErpBundle\Model\Shipment;
+use Williams\ErpBundle\Model\ShipmentCollection;
 use Williams\ErpBundle\Model\ShipmentItem;
+use Williams\ErpBundle\Model\ShipmentItemCollection;
 use Williams\ErpBundle\Model\ShipmentPackage;
+use Williams\ErpBundle\Model\ShipmentPackageCollection;
 use Williams\ErpBundle\Model\ShipmentPackageItem;
 
 class ServerShipmentRepository extends AbstractServerRepository implements ShipmentRepositoryInterface {
 
+    /**
+     * 
+     * @param integer $limit
+     * @param integer $offset
+     * @return ShipmentCollection
+     */
     public function findAll($limit = 1000, $offset = 0) {
 
         $query = "FOR EACH oe_head NO-LOCK "
@@ -71,9 +80,14 @@ class ServerShipmentRepository extends AbstractServerRepository implements Shipm
             $result[] = $item;
         }
 
-        return $result;
+        return new ShipmentCollection($result);
     }
 
+    /**
+     * 
+     * @param integer $orderNumber
+     * @return ShipmentCollection
+     */
     public function findByOrderNumber($orderNumber) {
 
         $query = "FOR EACH oe_head NO-LOCK "
@@ -136,9 +150,15 @@ class ServerShipmentRepository extends AbstractServerRepository implements Shipm
             $result[] = $item;
         }
 
-        return $result;
+        return new ShipmentCollection($result);
     }
 
+    /**
+     * 
+     * @param integer $orderNumber
+     * @param integer $recordSequence
+     * @return Shipment
+     */
     public function get($orderNumber, $recordSequence = 1) {
 
         $query = "FOR EACH oe_head NO-LOCK "
@@ -201,6 +221,12 @@ class ServerShipmentRepository extends AbstractServerRepository implements Shipm
         return $item;
     }
 
+    /**
+     * 
+     * @param integer $orderNumber
+     * @param integer $recordSequence
+     * @return ShipmentItemCollection
+     */
     public function getItems($orderNumber, $recordSequence = 1) {
 
         $query = "FOR EACH oe_line NO-LOCK "
@@ -227,9 +253,14 @@ class ServerShipmentRepository extends AbstractServerRepository implements Shipm
             $result[] = $item;
         }
 
-        return $result;
+        return new ShipmentItemCollection($result);
     }
 
+    /**
+     * 
+     * @param integer $orderNumber
+     * @return ShipmentPackageCollection
+     */
     public function getPackages($orderNumber) {
 
         $query = "FOR EACH oe_ship_pack NO-LOCK "
@@ -289,7 +320,7 @@ class ServerShipmentRepository extends AbstractServerRepository implements Shipm
             $result[] = $item;
         }
 
-        return $result;
+        return new ShipmentPackageCollection($result);
     }
 
 }
