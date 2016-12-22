@@ -2,30 +2,30 @@
 
 namespace Williams\ErpBundle\Service;
 
-use Williams\ErpBundle\Repository\AbstractInvoiceRepository;
-use Williams\ErpBundle\Repository\AbstractProductRepository;
-use Williams\ErpBundle\Repository\AbstractSalesOrderRepository;
-use Williams\ErpBundle\Repository\AbstractShipmentRepository;
+use Williams\ErpBundle\Repository\InvoiceRepositoryInterface;
+use Williams\ErpBundle\Repository\ProductRepositoryInterface;
+use Williams\ErpBundle\Repository\SalesOrderRepositoryInterface;
+use Williams\ErpBundle\Repository\ShipmentRepositoryInterface;
 
 interface ErpService {
 
     /**
-     * @return AbstractProductRepository
+     * @return ProductRepositoryInterface
      */
     public function getProductRepository();
 
     /**
-     * @return AbstractSalesOrderRepository
+     * @return SalesOrderRepositoryInterface
      */
     public function getSalesOrderRepository();
 
     /**
-     * @return AbstractShipmentRepository
+     * @return ShipmentRepositoryInterface
      */
     public function getShipmentRepository();
 
     /**
-     * @return AbstractInvoiceRepository
+     * @return InvoiceRepositoryInterface
      */
     public function getInvoiceRepository();
     
