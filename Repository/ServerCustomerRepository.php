@@ -28,7 +28,7 @@ class ServerCustomerRepository extends AbstractServerRepository implements Custo
         foreach ($response as $erpItem) {
             $item = new Customer();
             $item->setCustomerNumber($erpItem->customer_customer);
-            $item->setName(join(" ", $erpItem->customer_name));
+            $item->setName($erpItem->customer_name);
             $result[] = $item;
         }
 
@@ -58,7 +58,7 @@ class ServerCustomerRepository extends AbstractServerRepository implements Custo
         foreach ($response as $erpItem) {
             $item = new Customer();
             $item->setCustomerNumber($erpItem->customer_customer);
-            $item->setName(join(" ", $erpItem->customer_name));
+            $item->setName($erpItem->customer_name);
             $result[] = $item;
         }
 
@@ -89,8 +89,8 @@ class ServerCustomerRepository extends AbstractServerRepository implements Custo
 
         $item = new Customer();
         $item->setCustomerNumber($erpItem->customer_customer);
-        $item->setName(join(" ", $erpItem->customer_name));
-        
+        $item->setName($erpItem->customer_name);
+
         return $item;
     }
 
