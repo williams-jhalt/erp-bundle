@@ -16,7 +16,7 @@ class ServerCustomerRepository extends AbstractServerRepository implements Custo
     public function findAll($limit = 1000, $offset = 0) {
 
         $query = "FOR EACH customer NO-LOCK "
-                . "WHERE item.company_cu = '" . $this->erp->getCompany() . "'";
+                . "WHERE customer.company_cu = '" . $this->erp->getCompany() . "'";
 
         $fields = "customer.customer,"
                 . "customer.name";
