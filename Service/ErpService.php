@@ -2,6 +2,7 @@
 
 namespace Williams\ErpBundle\Service;
 
+use Williams\ErpBundle\Repository\CustomerRepositoryInterface;
 use Williams\ErpBundle\Repository\InvoiceRepositoryInterface;
 use Williams\ErpBundle\Repository\ProductRepositoryInterface;
 use Williams\ErpBundle\Repository\SalesOrderRepositoryInterface;

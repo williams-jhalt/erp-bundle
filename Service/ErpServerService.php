@@ -4,10 +4,13 @@ namespace Williams\ErpBundle\Service;
 
 use Doctrine\Common\Cache\FilesystemCache;
 use Exception;
+use Williams\ErpBundle\Repository\ServerCustomerRepository;
 use Williams\ErpBundle\Repository\ServerInvoiceRepository;
 use Williams\ErpBundle\Repository\ServerProductRepository;
 use Williams\ErpBundle\Repository\ServerSalesOrderRepository;
 use Williams\ErpBundle\Repository\ServerShipmentRepository;
+use function GuzzleHttp\json_decode;
+use function GuzzleHttp\json_encode;
 
 class ErpServerService implements ErpService {
 

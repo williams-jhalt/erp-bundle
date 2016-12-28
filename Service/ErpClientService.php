@@ -3,6 +3,7 @@
 namespace Williams\ErpBundle\Service;
 
 use JMS\Serializer\Serializer;
+use Williams\ErpBundle\Repository\ClientCustomerRepository;
 use Williams\ErpBundle\Repository\ClientInvoiceRepository;
 use Williams\ErpBundle\Repository\ClientProductRepository;
 use Williams\ErpBundle\Repository\ClientSalesOrderRepository;
