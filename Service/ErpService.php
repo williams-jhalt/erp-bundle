@@ -28,5 +28,10 @@ interface ErpService {
      * @return InvoiceRepositoryInterface
      */
     public function getInvoiceRepository();
+
+    /**
+     * @return CustomerRepositoryInterface
+     */
+    public function getCustomerRepository();
     
 }

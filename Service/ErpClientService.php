@@ -55,6 +55,14 @@ class ErpClientService implements ErpService {
     }
 
     /**
+     * 
+     * @return ClientCustomerRepository
+     */
+    public function getCustomerRepository() {
+        return new ClientCustomerRepository($this);
+    }
+
+    /**
      * Gets the host / url for queries
      * 
      * @return string

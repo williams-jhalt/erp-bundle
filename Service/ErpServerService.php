@@ -425,5 +425,12 @@ class ErpServerService implements ErpService {
     public function getInvoiceRepository() {
         return new ServerInvoiceRepository($this);
     }
+    
+    /**
+     * @return ServerCustomerRepository
+     */
+    public function getCustomerRepository() {
+        return new ServerCustomerRepository($this);
+    }
 
 }
