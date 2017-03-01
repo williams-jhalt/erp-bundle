@@ -194,6 +194,12 @@ class ServerProductRepository extends AbstractServerRepository implements Produc
         return $item;
     }
 
+    /**
+     * 
+     * @param type $limit
+     * @param type $offset
+     * @return ProductCollection
+     */
     public function findCommittedItems($limit = 1000, $offset = 0) {
 
         $query = "FOR EACH item NO-LOCK "
