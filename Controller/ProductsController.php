@@ -31,11 +31,14 @@ class ProductsController extends FOSRestController {
         $limit = $paramFetcher->get('limit');
         $offset = $paramFetcher->get('offset');
         $searchTerms = $paramFetcher->get('search');
+        $committed = $paramFetcher->get('committed', false);
 
         $productRepo = $this->getErpService()->getProductRepository();
         
         if (!empty($searchTerms)) {
             $products = $productRepo->findByTextSearch($searchTerms, $limit, $offset);
+        } elseif($committed) {
+            $products = $productRepo->findCommittedItems($limit, $offset);
         } else {
             $products = $productRepo->findAll($limit, $offset);
         }

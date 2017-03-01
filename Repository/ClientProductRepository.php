@@ -71,5 +71,22 @@ class ClientProductRepository extends AbstractClientRepository implements Produc
         return $result;
         
     }
+    
+    public function findCommittedItems($limit = 1000, $offset = 0) {
+
+        $format = 'json';
+
+        $response = $this->client->get("products.{$format}", ['query' => ['limit' => $limit, 'offset' => $offset, 'committed' => true]]);
+        
+        $data = $response->getBody();
+
+        $serializer = $this->erp->getSerializer();
+
+        $result = $serializer->deserialize($data, 'Williams\ErpBundle\Model\ProductCollection', $format);
+
+        return $result;
+        
+    }
+
 
 }

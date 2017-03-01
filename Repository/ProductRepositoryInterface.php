@@ -33,5 +33,13 @@ interface ProductRepositoryInterface {
      * @return Product
      */
     public function getByItemNumber($itemNumber);
+    
+    /**
+     * @param integer $limit
+     * @param integer $offset
+     * 
+     * @return ProductCollection
+     */
+    public function findCommittedItems($limit = 1000, $offset = 0);
 
 }

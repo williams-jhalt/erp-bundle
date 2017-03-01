@@ -62,3 +62,8 @@ class AppKernel extends Kernel
     // ...
 }
 ```
+
+Usage
+-----
+
+Instance of Williams\ErpBundle\Service\ErpService available as @williams_erp.service

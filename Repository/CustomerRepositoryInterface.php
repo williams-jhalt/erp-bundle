@@ -2,6 +2,9 @@
 
 namespace Williams\ErpBundle\Repository;
 
+use Williams\ErpBundle\Model\Customer;
+use Williams\ErpBundle\Model\CustomerCollection;
+
 interface CustomerRepositoryInterface {
 
     /**
