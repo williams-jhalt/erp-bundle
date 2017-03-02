@@ -22,6 +22,7 @@ class ProductsController extends FOSRestController {
      * @Rest\QueryParam(name="offset", requirements="\d+", default="0", description="Offset of record to start at")
      * @Rest\QueryParam(name="limit", requirements="\d+", default="1000", description="Number of items to return")
      * @Rest\QueryParam(name="search", description="Optional search terms")
+     * @Rest\QueryParam(name="committed", description="Optional return committed items")
      * 
      * @param ParamFetcher $paramFetcher
      * @return View

@@ -153,5 +153,22 @@ class ClientSalesOrderRepository extends AbstractClientRepository implements Sal
         return true;
         
     }
+    
+    public function findByOrderDate(\DateTime $startDate, \DateTime $endDate, $limit = 100, $offset = 0) {
+
+        $format = 'json';
+
+        $response = $this->client->get("orders.{$format}", ['query' => ['start_date' => $startDate, 'end_date' => $endDate, 'limit' => $limit, 'offset' => $offset]]);
+        
+        $data = $response->getBody();
+
+        $serializer = $this->erp->getSerializer();
+
+        $result = $serializer->deserialize($data, 'Williams\ErpBundle\Model\SalesOrderCollection', $format);
+
+        return $result;
+        
+    }
+
 
 }

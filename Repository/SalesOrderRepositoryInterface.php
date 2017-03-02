@@ -2,6 +2,7 @@
 
 namespace Williams\ErpBundle\Repository;
 
+use DateTime;
 use Williams\ErpBundle\Model\Order;
 use Williams\ErpBundle\Model\SalesOrder;
 use Williams\ErpBundle\Model\SalesOrderCollection;
@@ -67,5 +68,16 @@ interface SalesOrderRepositoryInterface {
      * @return boolean 
      */
     public function submitOrder(Order $order);
+    
+    /**
+     * 
+     * @param DateTime $startDate
+     * @param DateTime $endDate
+     * @param integer $limit
+     * @param integer $offset
+     * 
+     * @return SalesOrderCollection
+     */
+    public function findByOrderDate(DateTime $startDate, DateTime $endDate, $limit = 100, $offset = 0);
 
 }

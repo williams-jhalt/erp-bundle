@@ -26,7 +26,7 @@ class SalesOrdersController extends FOSRestController {
         $order = new Order();
 
         $form = $this->createForm(OrderType::class, $order);
-        
+
         $form->submit($request->request->get($form->getName()));
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -62,17 +62,25 @@ class SalesOrdersController extends FOSRestController {
      * @Rest\QueryParam(name="offset", requirements="\d+", default="0", description="Offset of record to start at")
      * @Rest\QueryParam(name="limit", requirements="\d+", default="100", description="Number of items to return")
      * @Rest\QueryParam(name="search", description="Optional search terms")
+     * @Rest\QueryParam(name="start_date", description="Optional start date of orders to be returned")
+     * @Rest\QueryParam(name="end_date", description="Required if start date is set")
      */
     public function getOrdersAction(ParamFetcher $paramFetcher) {
 
         $limit = (int) $paramFetcher->get('limit');
         $offset = (int) $paramFetcher->get('offset');
         $search = $paramFetcher->get('search');
+        $startDate = $paramFetcher->get('start_date');
+        $endDate = $paramFetcher->get('end_date');
 
         $repo = $this->getErpService()->getSalesOrderRepository();
 
         if (!empty($search)) {
             $salesOrders = $repo->findByTextSearch($search);
+        } elseif (!empty($startDate)) {
+            $sd = new DateTime($startDate);
+            $ed = new DateTime($endDate);
+            $salesOrders = $repo->findByOrderDate($sd, $ed, $limit, $offset);
         } else {
             $salesOrders = $repo->findOpen($limit, $offset);
         }
