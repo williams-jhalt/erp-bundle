@@ -232,27 +232,29 @@ class ServerSalesOrderRepository extends AbstractServerRepository implements Sal
 
         $response = $this->erp->read($query, $fields, 1);
 
-        $erpItem = $response[0];
-
         $item = new SalesOrder();
-        $item->setShipToAddress1($erpItem->adr[0]);
-        $item->setShipToAddress2($erpItem->adr[1]);
-        $item->setShipToAddress3($erpItem->adr[2]);
-        $item->setShipToCity($erpItem->adr[3]);
-        $item->setCustomerNumber($erpItem->customer);
-        $item->setCustomerPurchaseOrder($erpItem->cu_po);
-        $item->setShipToEmail($erpItem->email);
-        $item->setOpen($erpItem->opn);
-        $item->setOrderNumber($erpItem->order);
-        $item->setOrderDate(new DateTime($erpItem->ord_date));
-        $item->setWebReferenceNumber($erpItem->ord_ext);
-        $item->setShipToPhone($erpItem->phone);
-        $item->setRecordSequence($erpItem->rec_seq);
-        $item->setShipViaCode($erpItem->ship_via_code);
-        $item->setStatus($erpItem->stat);
-        $item->setShipToState($erpItem->state);
-        $item->setShipToCountry($erpItem->country_code);
-        $item->setShipToZip($erpItem->postal_code);
+
+        if (count($response) > 0) {
+            $erpItem = $response[0];
+            $item->setShipToAddress1($erpItem->adr[0]);
+            $item->setShipToAddress2($erpItem->adr[1]);
+            $item->setShipToAddress3($erpItem->adr[2]);
+            $item->setShipToCity($erpItem->adr[3]);
+            $item->setCustomerNumber($erpItem->customer);
+            $item->setCustomerPurchaseOrder($erpItem->cu_po);
+            $item->setShipToEmail($erpItem->email);
+            $item->setOpen($erpItem->opn);
+            $item->setOrderNumber($erpItem->order);
+            $item->setOrderDate(new DateTime($erpItem->ord_date));
+            $item->setWebReferenceNumber($erpItem->ord_ext);
+            $item->setShipToPhone($erpItem->phone);
+            $item->setRecordSequence($erpItem->rec_seq);
+            $item->setShipViaCode($erpItem->ship_via_code);
+            $item->setStatus($erpItem->stat);
+            $item->setShipToState($erpItem->state);
+            $item->setShipToCountry($erpItem->country_code);
+            $item->setShipToZip($erpItem->postal_code);
+        }
 
         return $item;
     }
@@ -345,9 +347,9 @@ class ServerSalesOrderRepository extends AbstractServerRepository implements Sal
 
         return true;
     }
-    
+
     public function findByOrderDate(DateTime $startDate, DateTime $endDate, $limit = 100, $offset = 0) {
-        
+
         $startDateString = $startDate->format('m/d/Y');
         $endDateString = $endDate->format('m/d/Y');
 
@@ -358,8 +360,6 @@ class ServerSalesOrderRepository extends AbstractServerRepository implements Sal
                 . "AND oe_head.ord_date <= $endDateString";
 
         return $this->_find($query, $limit, $offset);
-        
     }
-
 
 }
