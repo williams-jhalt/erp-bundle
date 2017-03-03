@@ -44,7 +44,8 @@ class ServerSalesOrderRepository extends AbstractServerRepository implements Sal
                 . "stat,"
                 . "state,"
                 . "country_code,"
-                . "postal_code";
+                . "postal_code,"
+                . "source_code";
 
         $response = $this->erp->read($query, $fields, $limit, $offset);
 
@@ -70,6 +71,7 @@ class ServerSalesOrderRepository extends AbstractServerRepository implements Sal
             $item->setShipToState($erpItem->state);
             $item->setShipToCountry($erpItem->country_code);
             $item->setShipToZip($erpItem->postal_code);
+            $item->setSourceCode($erpItem->source_code);
             $result[] = $item;
         }
 
@@ -161,7 +163,8 @@ class ServerSalesOrderRepository extends AbstractServerRepository implements Sal
                 . "stat,"
                 . "state,"
                 . "country_code,"
-                . "postal_code";
+                . "postal_code,"
+                . "source_code";
 
         $response = $this->erp->read($query, $fields, 1);
 
@@ -186,6 +189,7 @@ class ServerSalesOrderRepository extends AbstractServerRepository implements Sal
         $item->setShipToState($erpItem->state);
         $item->setShipToCountry($erpItem->country_code);
         $item->setShipToZip($erpItem->postal_code);
+        $item->setSourceCode($erpItem->source_code);
 
         return $item;
     }
@@ -228,7 +232,8 @@ class ServerSalesOrderRepository extends AbstractServerRepository implements Sal
                 . "stat,"
                 . "state,"
                 . "country_code,"
-                . "postal_code";
+                . "postal_code,"
+                . "source_code";
 
         $response = $this->erp->read($query, $fields, 1);
 
@@ -254,6 +259,7 @@ class ServerSalesOrderRepository extends AbstractServerRepository implements Sal
             $item->setShipToState($erpItem->state);
             $item->setShipToCountry($erpItem->country_code);
             $item->setShipToZip($erpItem->postal_code);
+            $item->setSourceCode($erpItem->source_code);
         }
 
         return $item;

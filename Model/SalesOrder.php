@@ -121,6 +121,12 @@ class SalesOrder {
      * @var string
      */
     protected $status;
+    
+    /**
+     * @JMS\Type("string")
+     * @var string
+     */
+    protected $sourceCode;
 
     /**
      * 
@@ -463,5 +469,25 @@ class SalesOrder {
         $this->status = $status;
         return $this;
     }
+
+    /**
+     * 
+     * @return string
+     */
+    public function getSourceCode() {
+        return $this->sourceCode;
+    }
+
+    /**
+     * 
+     * @param string $sourceCode
+     * @return SalesOrder
+     */
+    public function setSourceCode($sourceCode) {
+        $this->sourceCode = $sourceCode;
+        return $this;
+    }
+
+
 
 }
