@@ -201,7 +201,7 @@ class ServerShipmentRepository extends AbstractServerRepository implements Shipm
         $item->setShipToAddress1($erpItem->adr[0]);
         $item->setShipToAddress2($erpItem->adr[1]);
         $item->setShipToAddress3($erpItem->adr[2]);
-            $item->setShipToCity($erpItem->adr[3]);
+        $item->setShipToCity($erpItem->adr[3]);
         $item->setCustomerNumber($erpItem->customer);
         $item->setCustomerPurchaseOrder($erpItem->cu_po);
         $item->setShipToEmail($erpItem->email);
@@ -291,30 +291,36 @@ class ServerShipmentRepository extends AbstractServerRepository implements Shipm
             $item->setPackageHeight($erpItem->pack_height);
             $item->setPackageLength($erpItem->pack_length);
             $item->setPackageWidth($erpItem->pack_width);
-        
-            $query2 = "FOR EACH ed_ucc128ln NO-LOCK "
-                    . "WHERE ed_ucc128ln.company_oe = '" . $this->erp->getCompany() . "' "
-                    . "AND ed_ucc128ln.order = '{$orderNumber}' "
-                    . "AND ed_ucc128ln.tracking_no = '{$erpItem->tracking_no}'";
 
-            $fields2 = "item,qty,ucc,tracking_no";
-            
+            $query2 = "FOR EACH ed_ucc128pk NO-LOCK "
+                    . "WHERE ed_ucc128pk.company_oe = '" . $this->erp->getCompany() . "' "
+                    . "AND ed_ucc128pk.order = '{$orderNumber}', "
+                    . "FIRST ed_ucc128ln NO-LOCK WHERE "
+                    . "ed_ucc128ln.order = ed_ucc128pk.order AND "
+                    . "ed_ucc128ln.rec_type = ed_ucc128pk.rec_type AND "
+                    . "ed_ucc128ln.rec_seq = ed_ucc128pk.rec_seq AND "
+                    . "ed_ucc128ln.company_oe = ed_ucc128pk.company_oe AND "
+                    . "ed_ucc128ln.line = ed_ucc128pk.line AND "
+                    . "ed_ucc128ln.carton = ed_ucc128pk.carton AND "
+                    . "ed_ucc128ln.tracking_no = '{$erpItem->tracking_no}";
+
+            $fields2 = "ed_ucc128pk.item,ed_ucc128pk.qty,ed_ucc128pk.ucc";
+
             $response2 = $this->erp->read($query2, $fields2);
-            
+
             $items = array();
-            
+
             foreach ($response2 as $erpItem2) {
-                
-                $item->setUcc($erpItem2->ucc);
-                
+
+                $item->setUcc($erpItem2->ed_ucc128pk_ucc);
+
                 $item2 = new ShipmentPackageItem();
-                $item2->setItemNumber($erpItem2->item);
-                $item2->setQuantity($erpItem2->qty);
-                
+                $item2->setItemNumber($erpItem2->ed_ucc128pk_item);
+                $item2->setQuantity($erpItem2->ed_ucc128pk_qty);
+
                 $items[] = $item2;
-                
             }
-            
+
             $item->setItems($items);
 
             $result[] = $item;

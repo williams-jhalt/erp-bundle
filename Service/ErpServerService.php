@@ -38,7 +38,7 @@ class ErpServerService implements ErpService {
     public function __construct($server, $username, $password, $company, $appname, $warehouse = "MAIN") {
 
         $this->_cache = new FilesystemCache(sys_get_temp_dir());
-        $this->_cacheId = md5("erp_token:$server:$company:$appname");
+        $this->_cacheId = md5("erp_token:{$server}:{$company}:{$appname}");
 
         $this->_server = $server;
         $this->_username = $username;
