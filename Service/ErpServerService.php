@@ -21,6 +21,7 @@ class ErpServerService implements ErpService {
     private $_password;
     private $_grantTime;
     private $_cache;
+    private $_cacheId;
     private $_company;
     private $_appname;
     private $_warehouse;
@@ -37,6 +38,7 @@ class ErpServerService implements ErpService {
     public function __construct($server, $username, $password, $company, $appname, $warehouse = "MAIN") {
 
         $this->_cache = new FilesystemCache(sys_get_temp_dir());
+        $this->_cacheId = md5("erp_token:$server:$company:$appname");
 
         $this->_server = $server;
         $this->_username = $username;
@@ -45,7 +47,7 @@ class ErpServerService implements ErpService {
         $this->_appname = $appname;
         $this->_warehouse = $warehouse;
 
-        if (($serializedData = $this->_cache->fetch('erp_token')) !== false) {
+        if (($serializedData = $this->_cache->fetch($this->_cacheId)) !== false) {
             $data = unserialize($serializedData);
             $this->_grantToken = $data[0];
             $this->_accessToken = $data[1];
@@ -84,7 +86,7 @@ class ErpServerService implements ErpService {
         $response = json_decode(curl_exec($ch));
 
         if (isset($response->_errors)) {
-            $this->_cache->delete('erp_token');
+            $this->_cache->delete($this->_cacheId);
             throw new ErpServiceException($response->_errors[0]->_errorMsg, $response->_errors[0]->_errorNum); // find out the structure of ERP-ONE's errors
         }
 
@@ -93,7 +95,7 @@ class ErpServerService implements ErpService {
 
         $this->_grantTime = time();
 
-        $this->_cache->save('erp_token', serialize(array(
+        $this->_cache->save($this->_cacheId, serialize(array(
             $this->_grantToken,
             $this->_accessToken,
             $this->_grantTime
@@ -142,7 +144,7 @@ class ErpServerService implements ErpService {
         $response = json_decode(curl_exec($ch));
 
         if (isset($response->_errors)) {
-            $this->_cache->delete('erp_token');
+            $this->_cache->delete($this->_cacheId);
             $this->_getGrantToken($ch);
         }
 
@@ -150,7 +152,7 @@ class ErpServerService implements ErpService {
 
         $this->_grantTime = time();
 
-        $this->_cache->save('erp_token', serialize(array(
+        $this->_cache->save($this->_cacheId, serialize(array(
             $this->_grantToken,
             $this->_accessToken,
             $this->_grantTime
