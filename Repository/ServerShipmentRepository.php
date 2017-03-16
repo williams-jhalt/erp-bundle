@@ -302,7 +302,7 @@ class ServerShipmentRepository extends AbstractServerRepository implements Shipm
                     . "ed_ucc128ln.company_oe = ed_ucc128pk.company_oe AND "
                     . "ed_ucc128ln.line = ed_ucc128pk.line AND "
                     . "ed_ucc128ln.carton = ed_ucc128pk.carton AND "
-                    . "ed_ucc128ln.tracking_no = '{$erpItem->tracking_no}";
+                    . "ed_ucc128ln.tracking_no = '{$erpItem->tracking_no}'";
 
             $fields2 = "ed_ucc128pk.item,ed_ucc128pk.qty_shp,ed_ucc128pk.ucc";
 
