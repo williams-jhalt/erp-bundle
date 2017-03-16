@@ -304,7 +304,7 @@ class ServerShipmentRepository extends AbstractServerRepository implements Shipm
                     . "ed_ucc128ln.carton = ed_ucc128pk.carton AND "
                     . "ed_ucc128ln.tracking_no = '{$erpItem->tracking_no}";
 
-            $fields2 = "ed_ucc128pk.item,ed_ucc128pk.qty,ed_ucc128pk.ucc";
+            $fields2 = "ed_ucc128pk.item,ed_ucc128pk.qty_shp,ed_ucc128pk.ucc";
 
             $response2 = $this->erp->read($query2, $fields2);
 
@@ -316,7 +316,7 @@ class ServerShipmentRepository extends AbstractServerRepository implements Shipm
 
                 $item2 = new ShipmentPackageItem();
                 $item2->setItemNumber($erpItem2->ed_ucc128pk_item);
-                $item2->setQuantity($erpItem2->ed_ucc128pk_qty);
+                $item2->setQuantity($erpItem2->ed_ucc128pk_qty_shp);
 
                 $items[] = $item2;
             }
