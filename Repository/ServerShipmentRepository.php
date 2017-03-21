@@ -307,6 +307,7 @@ class ServerShipmentRepository extends AbstractServerRepository implements Shipm
             
             $query3 = "FOR EACH ed_ucc128pk NO-LOCK WHERE "
                     . "ed_ucc128pk.company_oe = '" . $this->erp->getCompany() . "' "
+                    . "AND ed_ucc128pk.order = '" . $orderNumber . "' "
                     . "AND ed_ucc128pk.ucc = '" . $package->getUcc() . "'";
             
             $fields3 = "ed_ucc128pk.item,ed_ucc128pk.qty_shp";
