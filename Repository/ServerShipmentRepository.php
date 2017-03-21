@@ -262,68 +262,72 @@ class ServerShipmentRepository extends AbstractServerRepository implements Shipm
      * @return ShipmentPackageCollection
      */
     public function getPackages($orderNumber) {
-
-        $query = "FOR EACH oe_ship_pack NO-LOCK "
-                . "WHERE oe_ship_pack.company_oe = '" . $this->erp->getCompany() . "' "
-                . "AND oe_ship_pack.order = '{$orderNumber}'";
-
-        $fields = "order,"
-                . "rec_seq,"
-                . "tracking_no,"
-                . "Manifest_id,"
-                . "ship_via_code,"
-                . "pkg_chg,"
-                . "pack_weight,"
-                . "pack_height,"
-                . "pack_length,"
-                . "pack_width";
-
+        
+        $query = "FOR EACH ed_ucc128ln NO-LOCK WHERE "
+                . "ed_ucc128ln.company_oe = '" . $this->erp->getCompany() . "' "
+                . "AND ed_ucc128ln.order = '{$orderNumber}'";
+                
+        $fields = "ed_ucc128ln.ucc,ed_ucc128ln.tracking_no";
+        
         $response = $this->erp->read($query, $fields);
-
+        
         $result = array();
-
-        foreach ($response as $erpItem) {
-            $item = new ShipmentPackage();
-            $item->setFreightCost($erpItem->pkg_chg);
-            $item->setShippingWeight($erpItem->pack_weight);
-            $item->setTrackingNumber($erpItem->tracking_no);
-            $item->setShipViaCode($erpItem->ship_via_code);
-            $item->setPackageHeight($erpItem->pack_height);
-            $item->setPackageLength($erpItem->pack_length);
-            $item->setPackageWidth($erpItem->pack_width);
-
-            $query2 = "FOR EACH ed_ucc128pk NO-LOCK "
-                    . "WHERE ed_ucc128pk.company_oe = '" . $this->erp->getCompany() . "' "
-                    . "AND ed_ucc128pk.order = '{$orderNumber}', "
-                    . "FIRST ed_ucc128ln NO-LOCK WHERE "
-                    . "ed_ucc128ln.order = ed_ucc128pk.order AND "
-                    . "ed_ucc128ln.rec_type = ed_ucc128pk.rec_type AND "
-                    . "ed_ucc128ln.rec_seq = ed_ucc128pk.rec_seq AND "
-                    . "ed_ucc128ln.company_oe = ed_ucc128pk.company_oe AND "
-                    . "ed_ucc128ln.line = ed_ucc128pk.line AND "
-                    . "ed_ucc128ln.carton = ed_ucc128pk.carton AND "
-                    . "ed_ucc128ln.tracking_no = '{$erpItem->tracking_no}'";
-
-            $fields2 = "ed_ucc128pk.item,ed_ucc128pk.qty_shp,ed_ucc128pk.ucc";
-
-            $response2 = $this->erp->read($query2, $fields2);
-
+        
+        foreach ($response as $uccln) {
+            
+            $package = new ShipmentPackage();
+            $package->setUcc($uccln->ed_ucc128ln_ucc);
+            $package->setTrackingNumber($uccln->ed_ucc128ln_tracking_no);
+            
+            if ($package->getTrackingNumber() !== null) {
+                $query2 = "FOR EACH oe_ship_pack NO-LOCK WHERE "
+                        . "oe_ship_pack.company_oe = '" . $this->erp->getCompany() . "' "
+                        . "AND oe_ship_pack.order = '{$orderNumber}' "
+                        . "AND oe_ship_pack.tracking_no = '" . $package->getTrackingNumber() . "'";
+                        
+                $fields2 = "oe_ship_pack.ship_via_code,"
+                        . "oe_ship_pack.pkg_chg,"
+                        . "oe_ship_pack.pack_weight,"
+                        . "oe_ship_pack.pack_height,"
+                        . "oe_ship_pack.pack_length,"
+                        . "oe_ship_pack.pack_width";
+                
+                $result2 = $this->erp->read($query2, $fields2);
+                
+                if (count($result2) > 0) {
+                    $package->setShipViaCode($result2[0]->oe_ship_pack_ship_via_code);
+                    $package->setFreightCost($result2[0]->oe_ship_pack_pkg_chg);
+                    $package->setShippingWeight($result2[0]->oe_ship_pack_pack_weight);
+                    $package->setPackageHeight($result2[0]->oe_ship_pack_pack_height);
+                    $package->setPackageLength($result2[0]->oe_ship_pack_pack_length);
+                    $package->setPackageWidth($result2[0]->oe_ship_pack_pack_width);
+                }
+                
+            }            
+            
+            $query3 = "FOR EACH ed_ucc128pk NO-LOCK WHERE "
+                    . "ed_ucc128pk.company_oe = '" . $this->erp->getCompany() . "' "
+                    . "AND ed_ucc128pk.ucc = '" . $package->getUcc() . "'";
+            
+            $fields3 = "ed_ucc128pk.item,ed_ucc128pk.qty_shp";
+            
+            $result3 = $this->erp->read($query3, $fields3);
+            
             $items = array();
-
-            foreach ($response2 as $erpItem2) {
-
-                $item->setUcc($erpItem2->ed_ucc128pk_ucc);
+            
+            foreach ($result3 as $uccpk) {
 
                 $item2 = new ShipmentPackageItem();
-                $item2->setItemNumber($erpItem2->ed_ucc128pk_item);
-                $item2->setQuantity($erpItem2->ed_ucc128pk_qty_shp);
+                $item2->setItemNumber($uccpk->ed_ucc128pk_item);
+                $item2->setQuantity($uccpk->ed_ucc128pk_qty_shp);
 
-                $items[] = $item2;
+                $items[] = $item2;                
+                
             }
-
-            $item->setItems($items);
-
-            $result[] = $item;
+            
+            $package->setItems($items);
+            $result[] = $package;
+            
         }
 
         return new ShipmentPackageCollection($result);
