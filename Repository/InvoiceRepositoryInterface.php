@@ -27,7 +27,7 @@ interface InvoiceRepositoryInterface {
      * @param integer $offset
      * @return InvoiceCollection
      */
-    public function findByCustomerAndDate($customerNumber, DateTime $startDate, DateTime $endDate, $consolidated = false, $limit = 1000, $offset = 0);
+    public function findByCustomerAndDate($customerNumber, $startDate = null, $endDate = null, $consolidated = false, $limit = 1000, $offset = 0);
     
     /**
      * 
