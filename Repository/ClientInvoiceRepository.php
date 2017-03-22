@@ -18,8 +18,8 @@ class ClientInvoiceRepository extends AbstractClientRepository implements Invoic
 
         $format = 'json';
 
-        $response = $this->client->get("invoices.{$format}", [ 'query' => ['limit' => $limit, 'offset' => $offset]]);
-        
+        $response = $this->client->get("invoices.{$format}", ['query' => ['limit' => $limit, 'offset' => $offset]]);
+
         $data = $response->getBody();
 
         $serializer = $this->erp->getSerializer();
@@ -27,7 +27,28 @@ class ClientInvoiceRepository extends AbstractClientRepository implements Invoic
         $result = $serializer->deserialize($data, 'Williams\ErpBundle\Model\InvoiceCollection', $format);
 
         return $result;
-        
+    }
+
+    public function findByCustomerAndDate($customerNumber, DateTime $startDate, DateTime $endDate, $consolidated = false, $limit = 1000, $offset = 0) {
+
+        $format = 'json';
+
+        $response = $this->client->get("invoices.{$format}", [
+            'query' => [
+                'customerNumber' => $customerNumber,
+                'startDate' => $startDate,
+                'endDate' => $endDate,
+                'consolidated' => $consolidated,
+                'limit' => $limit,
+                'offset' => $offset]]);
+
+        $data = $response->getBody();
+
+        $serializer = $this->erp->getSerializer();
+
+        $result = $serializer->deserialize($data, 'Williams\ErpBundle\Model\InvoiceCollection', $format);
+
+        return $result;
     }
 
     /**
@@ -39,8 +60,8 @@ class ClientInvoiceRepository extends AbstractClientRepository implements Invoic
 
         $format = 'json';
 
-        $response = $this->client->get("invoices/{$orderNumber}.{$format}");
-        
+        $response = $this->client->get("invoices.{$format}", ['query' => ['orderNumber' => $orderNumber]]);
+
         $data = $response->getBody();
 
         $serializer = $this->erp->getSerializer();
@@ -61,7 +82,7 @@ class ClientInvoiceRepository extends AbstractClientRepository implements Invoic
         $format = 'json';
 
         $response = $this->client->get("invoices/{$orderNumber}/{$recordSequence}.{$format}");
-        
+
         $data = $response->getBody();
 
         $serializer = $this->erp->getSerializer();
@@ -69,7 +90,6 @@ class ClientInvoiceRepository extends AbstractClientRepository implements Invoic
         $result = $serializer->deserialize($data, 'Williams\ErpBundle\Model\Invoice', $format);
 
         return $result;
-        
     }
 
     /**
@@ -80,10 +100,10 @@ class ClientInvoiceRepository extends AbstractClientRepository implements Invoic
      */
     public function getItems($orderNumber, $recordSequence = 1) {
 
-        $format = 'json';        
+        $format = 'json';
 
         $response = $this->client->get("invoices/{$orderNumber}/{$recordSequence}/items.{$format}");
-        
+
         $data = $response->getBody();
 
         $serializer = $this->erp->getSerializer();
@@ -91,7 +111,6 @@ class ClientInvoiceRepository extends AbstractClientRepository implements Invoic
         $result = $serializer->deserialize($data, 'Williams\ErpBundle\Model\InvoiceItemCollection', $format);
 
         return $result;
-        
     }
 
 }
