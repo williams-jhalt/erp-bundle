@@ -13,6 +13,12 @@ class InvoiceItem extends SalesOrderItem {
     protected $quantityBilled;
 
     /**
+     * @JMS\Type("double")
+     * @var double
+     */
+    protected $price;
+
+    /**
      * 
      * @return integer
      */
@@ -27,6 +33,24 @@ class InvoiceItem extends SalesOrderItem {
      */
     public function setQuantityBilled($quantityBilled) {
         $this->quantityBilled = $quantityBilled;
+        return $this;
+    }
+
+    /**
+     * 
+     * @return double
+     */
+    public function getPrice() {
+        return $this->price;
+    }
+
+    /**
+     * 
+     * @param double $price
+     * @return InvoiceItem
+     */
+    public function setPrice($price) {
+        $this->price = $price;
         return $this;
     }
 

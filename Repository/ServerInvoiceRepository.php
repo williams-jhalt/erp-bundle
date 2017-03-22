@@ -350,6 +350,7 @@ class ServerInvoiceRepository extends AbstractServerRepository implements Invoic
             $item->setItemNumber($erpItem->item);
             $item->setQuantityBilled($erpItem->q_itd);
             $item->setQuantityOrdered($erpItem->q_ord);
+            $item->setPrice($erpItem->price);
             $result[] = $item;
         }
 
