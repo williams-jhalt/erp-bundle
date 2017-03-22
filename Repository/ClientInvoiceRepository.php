@@ -2,6 +2,7 @@
 
 namespace Williams\ErpBundle\Repository;
 
+use DateTime;
 use Williams\ErpBundle\Model\Invoice;
 use Williams\ErpBundle\Model\InvoiceCollection;
 use Williams\ErpBundle\Model\InvoiceItemCollection;
@@ -29,18 +30,38 @@ class ClientInvoiceRepository extends AbstractClientRepository implements Invoic
         return $result;
     }
 
+    /**
+     * 
+     * @param string $customerNumber
+     * @param DateTime $startDate
+     * @param DateTime $endDate
+     * @param boolean $consolidated
+     * @param int $limit
+     * @param int $offset
+     * @return InvoiceCollection
+     */
     public function findByCustomerAndDate($customerNumber, $startDate = null, $endDate = null, $consolidated = false, $limit = 1000, $offset = 0) {
 
         $format = 'json';
 
+        $query = [
+            'customerNumber' => $customerNumber,
+            'limit' => $limit,
+            'offset' => $offset,
+            'consolidated' => $consolidated
+        ];
+
+        if ($startDate !== null) {
+            $query['startDate'] = $startDate->format('c');
+        }
+
+        if ($endDate !== null) {
+            $query['endDate'] = $endDate->format('c');
+        }
+
         $response = $this->client->get("invoices.{$format}", [
-            'query' => [
-                'customerNumber' => $customerNumber,
-                'startDate' => $startDate,
-                'endDate' => $endDate,
-                'consolidated' => $consolidated,
-                'limit' => $limit,
-                'offset' => $offset]]);
+            'query' => $query
+        ]);
 
         $data = $response->getBody();
 

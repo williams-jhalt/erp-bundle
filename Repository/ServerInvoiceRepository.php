@@ -103,12 +103,12 @@ class ServerInvoiceRepository extends AbstractServerRepository implements Invoic
                 . "oe_head.customer = '{$customerNumber}'";
 
         if ($startDate !== null) {
-            $startDateStr = $startDate->format("M/D/Y");
+            $startDateStr = $startDate->format("m/d/Y");
             $query .= " AND oe_head.invc_date >= '{$startDateStr}'";
         }
 
         if ($endDate !== null) {
-            $endDateStr = $endDate->format("M/D/Y");
+            $endDateStr = $endDate->format("m/d/Y");
             $query .= " AND oe_head.invc_date <= '{$endDateStr}'";
         }
 
