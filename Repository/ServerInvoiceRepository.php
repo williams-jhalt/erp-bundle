@@ -156,8 +156,8 @@ class ServerInvoiceRepository extends AbstractServerRepository implements Invoic
             $item->setShipToCity($erpItem->adr[3]);
             $item->setCustomerNumber($erpItem->customer);
             $item->setCustomerPurchaseOrder($erpItem->cu_po);
-            $item->setShippingAndHandling($erpItem->c_tot_code_amt[0]);
-            $item->setFreightCharge($erpItem->c_tot_code_amt[1]);
+            $item->setShippingAndHandling($erpItem->c_tot_code_amt[1]);
+            $item->setFreightCharge($erpItem->c_tot_code_amt[0]);
             $item->setGrossInvoiceAmount($erpItem->c_tot_gross);
             $item->setNetInvoiceAmount($erpItem->c_tot_net_ar);
             $item->setShipToEmail($erpItem->email);
