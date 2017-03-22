@@ -339,7 +339,7 @@ class ServerInvoiceRepository extends AbstractServerRepository implements Invoic
                 . "AND oe_line.rec_type = 'I' "
                 . "AND oe_line.order = '{$orderNumber}' AND oe_line.rec_seq = '{$recordSequence}'";
 
-        $fields = "line,item,descr,price,q_ord,q_itd,q_comm";
+        $fields = "line,item,descr,price,q_ord,q_itd,q_comm,um_o";
 
         $response = $this->erp->read($query, $fields);
 
@@ -351,6 +351,7 @@ class ServerInvoiceRepository extends AbstractServerRepository implements Invoic
             $item->setQuantityBilled($erpItem->q_itd);
             $item->setQuantityOrdered($erpItem->q_ord);
             $item->setPrice($erpItem->price);
+            $item->setUnitOfMeasure($erpItem->um_o);
             $result[] = $item;
         }
 
