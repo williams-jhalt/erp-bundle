@@ -3,6 +3,7 @@
 namespace Williams\ErpBundle\Controller;
 
 use DateTime;
+use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Request\ParamFetcher;
 use FOS\RestBundle\View\View;
