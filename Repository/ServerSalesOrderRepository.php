@@ -168,28 +168,30 @@ class ServerSalesOrderRepository extends AbstractServerRepository implements Sal
 
         $response = $this->erp->read($query, $fields, 1);
 
-        $erpItem = $response[0];
-
         $item = new SalesOrder();
-        $item->setShipToAddress1($erpItem->adr[0]);
-        $item->setShipToAddress2($erpItem->adr[1]);
-        $item->setShipToAddress3($erpItem->adr[2]);
-        $item->setShipToCity($erpItem->adr[3]);
-        $item->setCustomerNumber($erpItem->customer);
-        $item->setCustomerPurchaseOrder($erpItem->cu_po);
-        $item->setShipToEmail($erpItem->email);
-        $item->setOpen($erpItem->opn);
-        $item->setOrderNumber($erpItem->order);
-        $item->setOrderDate(new DateTime($erpItem->ord_date));
-        $item->setWebReferenceNumber($erpItem->ord_ext);
-        $item->setShipToPhone($erpItem->phone);
-        $item->setRecordSequence($erpItem->rec_seq);
-        $item->setShipViaCode($erpItem->ship_via_code);
-        $item->setStatus($erpItem->stat);
-        $item->setShipToState($erpItem->state);
-        $item->setShipToCountry($erpItem->country_code);
-        $item->setShipToZip($erpItem->postal_code);
-        $item->setSourceCode($erpItem->source_code);
+
+        if (count($response) > 0) {
+            $erpItem = $response[0];
+            $item->setShipToAddress1($erpItem->adr[0]);
+            $item->setShipToAddress2($erpItem->adr[1]);
+            $item->setShipToAddress3($erpItem->adr[2]);
+            $item->setShipToCity($erpItem->adr[3]);
+            $item->setCustomerNumber($erpItem->customer);
+            $item->setCustomerPurchaseOrder($erpItem->cu_po);
+            $item->setShipToEmail($erpItem->email);
+            $item->setOpen($erpItem->opn);
+            $item->setOrderNumber($erpItem->order);
+            $item->setOrderDate(new DateTime($erpItem->ord_date));
+            $item->setWebReferenceNumber($erpItem->ord_ext);
+            $item->setShipToPhone($erpItem->phone);
+            $item->setRecordSequence($erpItem->rec_seq);
+            $item->setShipViaCode($erpItem->ship_via_code);
+            $item->setStatus($erpItem->stat);
+            $item->setShipToState($erpItem->state);
+            $item->setShipToCountry($erpItem->country_code);
+            $item->setShipToZip($erpItem->postal_code);
+            $item->setSourceCode($erpItem->source_code);
+        }
 
         return $item;
     }
