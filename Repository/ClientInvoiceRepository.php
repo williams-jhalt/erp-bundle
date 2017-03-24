@@ -71,7 +71,7 @@ class ClientInvoiceRepository extends AbstractClientRepository implements Invoic
         foreach ($salesOrders->getSalesOrders() as $salesOrder) {
 
             $response = $this->client->get("invoices.{$format}", [
-                'query' => $query
+                'query' => ['orderNumber' => $salesOrder->getOrderNumber()]
             ]);
 
             $data = $response->getBody();
