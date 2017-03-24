@@ -370,4 +370,19 @@ class ServerSalesOrderRepository extends AbstractServerRepository implements Sal
         return $this->_find($query, $limit, $offset);
     }
 
+    public function findByCustomerNumberAndOrderDate($customerNumber, DateTime $startDate, DateTime $endDate, $limit = 100, $offset = 0) {
+
+        $startDateString = $startDate->format('m/d/Y');
+        $endDateString = $endDate->format('m/d/Y');
+
+        $query = "FOR EACH oe_head NO-LOCK "
+                . "WHERE oe_head.company_oe = '" . $this->erp->getCompany() . "' "
+                . "AND oe_head.customer = '{$customerNumber}' "
+                . "AND oe_head.rec_type = 'O' "
+                . "AND oe_head.ord_date >= $startDateString "
+                . "AND oe_head.ord_date <= $endDateString";
+
+        return $this->_find($query, $limit, $offset);
+    }
+
 }

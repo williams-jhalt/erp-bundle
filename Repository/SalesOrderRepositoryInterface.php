@@ -79,5 +79,17 @@ interface SalesOrderRepositoryInterface {
      * @return SalesOrderCollection
      */
     public function findByOrderDate(DateTime $startDate, DateTime $endDate, $limit = 100, $offset = 0);
+    
+    /**
+     * 
+     * @param string $customerNumber
+     * @param DateTime $startDate
+     * @param DateTime $endDate
+     * @param integer $limit
+     * @param integer $offset
+     * 
+     * @return SalesOrderCollection
+     */
+    public function findByCustomerNumberAndOrderDate($customerNumber, DateTime $startDate, DateTime $endDate, $limit = 100, $offset = 0);
 
 }

@@ -64,6 +64,7 @@ class SalesOrdersController extends FOSRestController {
      * @Rest\QueryParam(name="search", description="Optional search terms")
      * @Rest\QueryParam(name="start_date", description="Optional start date of orders to be returned")
      * @Rest\QueryParam(name="end_date", description="Required if start date is set")
+     * @Rest\QueryParam(name="customer_number", description="Limit results to orders owned by customer")
      */
     public function getOrdersAction(ParamFetcher $paramFetcher) {
 
@@ -72,6 +73,7 @@ class SalesOrdersController extends FOSRestController {
         $search = $paramFetcher->get('search');
         $startDate = $paramFetcher->get('start_date');
         $endDate = $paramFetcher->get('end_date');
+        $customerNumber = $paramFetcher->get('customer_number');
 
         $repo = $this->getErpService()->getSalesOrderRepository();
 
@@ -80,7 +82,11 @@ class SalesOrdersController extends FOSRestController {
         } elseif (!empty($startDate)) {
             $sd = new DateTime($startDate);
             $ed = new DateTime($endDate);
-            $salesOrders = $repo->findByOrderDate($sd, $ed, $limit, $offset);
+            if (!empty($customerNumber)) {
+                $salesOrders = $repo->findByCustomerNumberAndOrderDate($customerNumber, $sd, $ed, $limit, $offset);
+            } else {
+                $salesOrders = $repo->findByOrderDate($sd, $ed, $limit, $offset);
+            }
         } else {
             $salesOrders = $repo->findOpen($limit, $offset);
         }

@@ -45,10 +45,9 @@ class ClientInvoiceRepository extends AbstractClientRepository implements Invoic
         $format = 'json';
 
         $query = [
-            'customerNumber' => $customerNumber,
+            'customer_number' => $customerNumber,
             'limit' => $limit,
-            'offset' => $offset,
-            'consolidated' => $consolidated
+            'offset' => $offset
         ];
 
         if ($startDate !== null) {
@@ -59,15 +58,31 @@ class ClientInvoiceRepository extends AbstractClientRepository implements Invoic
             $query['endDate'] = $endDate->format('c');
         }
 
-        $response = $this->client->get("invoices.{$format}", [
-            'query' => $query
-        ]);
+        $salesOrderResponse = $this->client->get("orders.{$format}", ['query' => $query]);
 
-        $data = $response->getBody();
+        $salesOrderData = $salesOrderResponse->getBody();
 
         $serializer = $this->erp->getSerializer();
 
-        $result = $serializer->deserialize($data, 'Williams\ErpBundle\Model\InvoiceCollection', $format);
+        $salesOrders = $serializer->deserialize($salesOrderData, 'Williams\ErpBundle\Model\SalesOrderCollection', $format);
+        
+        $result = new InvoiceCollection();        
+
+        foreach ($salesOrders->getSalesOrders() as $salesOrder) {
+
+            $response = $this->client->get("invoices.{$format}", [
+                'query' => $query
+            ]);
+
+            $data = $response->getBody();
+
+            $serializer = $this->erp->getSerializer();
+
+            $invoices = $serializer->deserialize($data, 'Williams\ErpBundle\Model\InvoiceCollection', $format);
+            
+            $result->setInvoices(array_merge($result->getInvoices(), $invoices->getInvoices()));
+            
+        }
 
         return $result;
     }
