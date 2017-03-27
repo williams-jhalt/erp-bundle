@@ -170,7 +170,7 @@ class ClientSalesOrderRepository extends AbstractClientRepository implements Sal
         
     }
     
-    public function findByCustomerAndOrderDate($customerNumber, \DateTime $startDate, \DateTime $endDate, $limit = 100, $offset = 0) {
+    public function findByCustomerNumberAndOrderDate($customerNumber, \DateTime $startDate, \DateTime $endDate, $limit = 100, $offset = 0) {
 
         $format = 'json';
 

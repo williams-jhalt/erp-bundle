@@ -69,16 +69,8 @@ class ClientInvoiceRepository extends AbstractClientRepository implements Invoic
         $result = new InvoiceCollection();        
 
         foreach ($salesOrders->getSalesOrders() as $salesOrder) {
-
-            $response = $this->client->get("invoices.{$format}", [
-                'query' => ['orderNumber' => $salesOrder->getOrderNumber()]
-            ]);
-
-            $data = $response->getBody();
-
-            $serializer = $this->erp->getSerializer();
-
-            $invoices = $serializer->deserialize($data, 'Williams\ErpBundle\Model\InvoiceCollection', $format);
+            
+            $invoices = $this->findByOrderNumber($salesOrder->getOrderNumber());
             
             $result->setInvoices(array_merge($result->getInvoices(), $invoices->getInvoices()));
             

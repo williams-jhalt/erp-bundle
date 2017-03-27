@@ -17,6 +17,15 @@ interface ShipmentRepositoryInterface {
      * @return ShipmentCollection
      */
     public function findAll($limit = 1000, $offset = 0);
+
+    /**
+     * 
+     * @param integer $limit
+     * @param integer $offset
+     * 
+     * @return ShipmentCollection
+     */
+    public function findOpen($limit = 1000, $offset = 0);
     
     /**
      * 

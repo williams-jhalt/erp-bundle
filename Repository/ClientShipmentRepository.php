@@ -32,6 +32,43 @@ class ClientShipmentRepository extends AbstractClientRepository implements Shipm
 
     /**
      * 
+     * @param int $limit
+     * @param int $offset
+     * @return InvoiceCollection
+     */
+    public function findOpen($limit = 1000, $offset = 0) {
+
+        $format = 'json';
+
+        $query = [
+            'open' => true,
+            'limit' => $limit,
+            'offset' => $offset
+        ];
+
+        $salesOrderResponse = $this->client->get("orders.{$format}", ['query' => $query]);
+
+        $salesOrderData = $salesOrderResponse->getBody();
+
+        $serializer = $this->erp->getSerializer();
+
+        $salesOrders = $serializer->deserialize($salesOrderData, 'Williams\ErpBundle\Model\SalesOrderCollection', $format);
+        
+        $result = new ShipmentCollection();        
+
+        foreach ($salesOrders->getSalesOrders() as $salesOrder) {
+
+            $shipments = $this->findByOrderNumber($salesOrder->getOrderNumber());
+            
+            $result->setShipments(array_merge($result->getShipments(), $shipments->getShipments()));
+            
+        }
+
+        return $result;
+    }
+
+    /**
+     * 
      * @param integer $orderNumber
      * @return ShipmentCollection
      */
