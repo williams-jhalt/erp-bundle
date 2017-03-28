@@ -50,7 +50,8 @@ class ServerShipmentRepository extends AbstractServerRepository implements Shipm
                 . "state,"
                 . "country_code,"
                 . "postal_code,"
-                . "Manifest_id";
+                . "Manifest_id,"
+                . "num_pages";
 
         $response = $this->erp->read($query, $fields, $limit, $offset);
 
@@ -101,7 +102,8 @@ class ServerShipmentRepository extends AbstractServerRepository implements Shipm
                 . "state,"
                 . "country_code,"
                 . "postal_code,"
-                . "Manifest_id";
+                . "Manifest_id,"
+                . "num_pages";
 
         $response = $this->erp->read($query, $fields, $limit, $offset);
 
@@ -151,7 +153,8 @@ class ServerShipmentRepository extends AbstractServerRepository implements Shipm
                 . "state,"
                 . "country_code,"
                 . "postal_code,"
-                . "Manifest_id";
+                . "Manifest_id,"
+                . "num_pages";
 
         $response = $this->erp->read($query, $fields);
 
@@ -202,7 +205,8 @@ class ServerShipmentRepository extends AbstractServerRepository implements Shipm
                 . "state,"
                 . "country_code,"
                 . "postal_code,"
-                . "Manifest_id";
+                . "Manifest_id,"
+                . "num_pages";
 
         $response = $this->erp->read($query, $fields, 1);
 
@@ -355,6 +359,7 @@ class ServerShipmentRepository extends AbstractServerRepository implements Shipm
         $shipment->setShipToCountry($erpShipment->country_code);
         $shipment->setShipToZip($erpShipment->postal_code);
         $shipment->setManifestId($erpShipment->Manifest_id);
+        $shipment->setNumberOfPages($erpShipment->num_pages);
 
         return $shipment;
     }
