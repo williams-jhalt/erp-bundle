@@ -4,7 +4,6 @@ namespace Williams\ErpBundle\Model;
 
 use JMS\Serializer\Annotation as JMS;
 
-
 class Order {
 
     /**
@@ -12,79 +11,85 @@ class Order {
      * @var string
      */
     protected $webOrderNumber;
-    
+
+    /**
+     * @JMS\Type("string")
+     * @var string
+     */
+    protected $customerPo;
+
     /**
      * @JMS\Type("string")
      * @var string
      */
     protected $customerNumber;
-    
+
     /**
      * @JMS\Type("string")
      * @var string
      */
     protected $shipToName;
-    
+
     /**
      * @JMS\Type("string")
      * @var string
      */
     protected $shipToAddress1;
-    
+
     /**
      * @JMS\Type("string")
      * @var string
      */
     protected $shipToAddress2;
-    
+
     /**
      * @JMS\Type("string")
      * @var string
      */
     protected $shipToAddress3;
-    
+
     /**
      * @JMS\Type("string")
      * @var string
      */
     protected $shipToCity;
-    
+
     /**
      * @JMS\Type("string")
      * @var string
      */
     protected $shipToState;
-    
+
     /**
      * @JMS\Type("string")
      * @var string
      */
     protected $shipToZip;
-    
+
     /**
      * @JMS\Type("string")
      * @var string
      */
     protected $shipToCountry;
-    
+
     /**
      * @JMS\Type("string")
      * @var string
      */
     protected $shipToPhone;
-    
+
     /**
      * @JMS\Type("string")
      * @var string
      */
     protected $shipToEmail;
-    
+
     /**
      * @JMS\Type("string")
      * @var string
      */
     protected $shipViaCode;
-    
+
     /**
      * @JMS\Type("string")
      * @var string
@@ -382,6 +387,24 @@ class Order {
      */
     public function setShipToEmail($shipToEmail) {
         $this->shipToEmail = $shipToEmail;
+        return $this;
+    }
+
+    /**
+     * 
+     * @return string
+     */
+    public function getCustomerPo() {
+        return $this->customerPo;
+    }
+
+    /**
+     * 
+     * @param string $customerPo
+     * @return Order
+     */
+    public function setCustomerPo($customerPo) {
+        $this->customerPo = $customerPo;
         return $this;
     }
 

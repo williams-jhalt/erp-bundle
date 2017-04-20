@@ -308,6 +308,7 @@ class ServerSalesOrderRepository extends AbstractServerRepository implements Sal
 
         $data = array(
             'order_ext' => $order->getWebOrderNumber(),
+            'cu_po' => $order->getCustomerPo(),
             'customer' => $order->getCustomerNumber(),
             's_name' => $order->getShipToName(),
             's_adr' => array(
