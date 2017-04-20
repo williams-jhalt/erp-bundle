@@ -6,19 +6,24 @@ use JMS\Serializer\Annotation as JMS;
 
 class SalesOrderItem {
 
-    
     /**
      * @JMS\Type("string")
      * @var string
      */
     protected $itemNumber;
-    
+
     /**
      * @JMS\Type("integer")
      * @var integer
      */
     protected $quantityOrdered;
-    
+
+    /**
+     * @JMS\Type("integer")
+     * @var integer
+     */
+    protected $lineNumber;
+
     /**
      * @JMS\Type("string")
      * @var string
@@ -44,7 +49,7 @@ class SalesOrderItem {
     /**
      * 
      * @param string $itemNumber
-     * @return SalesOrderItem
+     * @return self
      */
     public function setItemNumber($itemNumber) {
         $this->itemNumber = $itemNumber;
@@ -54,7 +59,7 @@ class SalesOrderItem {
     /**
      * 
      * @param integer $quantityOrdered
-     * @return SalesOrderItem
+     * @return self
      */
     public function setQuantityOrdered($quantityOrdered) {
         $this->quantityOrdered = $quantityOrdered;
@@ -72,10 +77,28 @@ class SalesOrderItem {
     /**
      * 
      * @param string $unitOfMeasure
-     * @return SalesOrderItem
+     * @return self
      */
     public function setUnitOfMeasure($unitOfMeasure) {
         $this->unitOfMeasure = $unitOfMeasure;
+        return $this;
+    }
+
+    /**
+     * 
+     * @return self
+     */
+    public function getLineNumber() {
+        return $this->lineNumber;
+    }
+
+    /**
+     * 
+     * @param integer $lineNumber
+     * @return self
+     */
+    public function setLineNumber($lineNumber) {
+        $this->lineNumber = $lineNumber;
         return $this;
     }
 

@@ -308,7 +308,7 @@ class ServerSalesOrderRepository extends AbstractServerRepository implements Sal
 
         $data = array(
             'order_ext' => $order->getWebOrderNumber(),
-            'cu_po' => $order->getCustomerPo(),
+            'cu_po' => $order->getCustomerPurchaseOrder(),
             'customer' => $order->getCustomerNumber(),
             's_name' => $order->getShipToName(),
             's_adr' => array(
@@ -340,7 +340,7 @@ class ServerSalesOrderRepository extends AbstractServerRepository implements Sal
             $itemData[] = array(
                 'order_ext' => $order->getWebOrderNumber(),
                 'customer' => $order->getCustomerNumber(),
-                'line' => $key + 1,
+                'line' => empty($item->getLineNumber()) ? $key + 1 : $item->getLineNumber(),
                 'item' => $item->getItemNumber(),
                 'qty_ord' => $item->getQuantityOrdered(),
                 'unit_price' => $erpItem->getWholesalePrice(),

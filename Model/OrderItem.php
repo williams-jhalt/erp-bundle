@@ -11,12 +11,18 @@ class OrderItem {
      * @var string
      */
     protected $itemNumber;
-    
+
     /**
      * @JMS\Type("integer")
      * @var integer
      */
     protected $quantityOrdered;
+
+    /**
+     * @JMS\Type("integer")
+     * @var integer
+     */
+    protected $lineNumber;
 
     /**
      * 
@@ -51,6 +57,24 @@ class OrderItem {
      */
     public function setQuantityOrdered($quantityOrdered) {
         $this->quantityOrdered = $quantityOrdered;
+        return $this;
+    }
+
+    /**
+     * 
+     * @return integer
+     */
+    public function getLineNumber() {
+        return $this->lineNumber;
+    }
+
+    /**
+     * 
+     * @param integer $lineNumber
+     * @return OrderItem
+     */
+    public function setLineNumber($lineNumber) {
+        $this->lineNumber = $lineNumber;
         return $this;
     }
 

@@ -16,7 +16,7 @@ class Order {
      * @JMS\Type("string")
      * @var string
      */
-    protected $customerPo;
+    protected $customerPurchaseOrder;
 
     /**
      * @JMS\Type("string")
@@ -394,17 +394,17 @@ class Order {
      * 
      * @return string
      */
-    public function getCustomerPo() {
-        return $this->customerPo;
+    public function getCustomerPurchaseOrder() {
+        return $this->customerPurchaseOrder;
     }
 
     /**
      * 
-     * @param string $customerPo
+     * @param string $customerPurchaseOrder
      * @return Order
      */
-    public function setCustomerPo($customerPo) {
-        $this->customerPo = $customerPo;
+    public function setCustomerPurchaseOrder($customerPurchaseOrder) {
+        $this->customerPurchaseOrder = $customerPurchaseOrder;
         return $this;
     }
 
