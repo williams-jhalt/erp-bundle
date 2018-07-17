@@ -17,10 +17,10 @@
     },
     "require": {
         "php": ">=5.5.9",
-        "symfony/symfony": "3.2.*",
-        "sensio/framework-extra-bundle": "^3.0.2",
-        "friendsofsymfony/rest-bundle": "^2.1",
-        "jms/serializer-bundle": "^1.1",
-        "guzzlehttp/guzzle": "~6.0"
+        "symfony/symfony": "^4.1",
+        "symfony/framework-bundle": "^4.1",
+        "friendsofsymfony/rest-bundle": "^2.3",
+        "guzzlehttp/guzzle": "^6.3",
+        "jms/serializer-bundle": "^2.4"
     }
 }
