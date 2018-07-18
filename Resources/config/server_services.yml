@@ -1,4 +1,0 @@
-services:
-    williams_erp.service:
-        class: Williams\ErpBundle\Service\ErpServerService
-        arguments: [ "%erp.host%", "%erp.username%", "%erp.password%", "%erp.company%", "%erp.appname%" ] 
